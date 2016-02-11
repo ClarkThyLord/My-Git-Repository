@@ -1,1 +1,1 @@
-Hello There!
+Hello There! This is my repository for some of my projects!
