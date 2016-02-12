@@ -38,7 +38,7 @@ public class GUI_1 extends JFrame {
 	 */
 	public GUI_1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 369);
+		setBounds(100, 100, 450, 370);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
