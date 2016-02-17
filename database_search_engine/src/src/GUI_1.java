@@ -10,6 +10,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GUI_1 extends JFrame {
 
@@ -66,6 +68,11 @@ public class GUI_1 extends JFrame {
 		contentPane.add(lblWelcomeToA);
 		
 		JButton btnEntre = new JButton("Enter");
+		btnEntre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		btnEntre.setBounds(261, 197, 100, 35);
 		contentPane.add(btnEntre);
 		

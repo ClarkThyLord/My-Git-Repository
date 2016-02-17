@@ -1,5 +1,10 @@
 package src;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -56,6 +61,11 @@ public class GUI_Core {
 		
 		enter_button.setBounds(261, 197, 100, 35);
 		content_1.add(enter_button);
+		enter_button.addActionListener(new ActionListener(){   public void actionPerformed(ActionEvent e) {
+			
+			content_1.setVisible(false);	
+			
+		}});
 	
 		return;
 	
