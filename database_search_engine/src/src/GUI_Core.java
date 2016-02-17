@@ -14,11 +14,11 @@ public class GUI_Core {
 	//COMPONENTS:
 	static JPanel content_1 = new JPanel();
 	static JLabel title_label = new JLabel("Welcome To A Java Database Search Engine");
-	static JTextField name_button = new JTextField();
-	static JLabel name_label = new JLabel();
-	static JPasswordField password_button = new JPasswordField();
-	static JLabel password_label = new JLabel();
-	static JLabel description_label = new JLabel();
+	static JLabel name_label = new JLabel("Name:");
+	static JTextField name_field = new JTextField();
+	static JLabel password_label = new JLabel("Password:");
+	static JPasswordField password_field = new JPasswordField();
+	static JLabel description_label = new JLabel("pleas sign in to proced");
 	static JButton enter_button = new JButton("Enter");
 
 	//FRAME #2
@@ -36,8 +36,26 @@ public class GUI_Core {
 		window_1.setContentPane(content_1);
 		content_1.setLayout(null);
 	
-		title_label.setBounds(109, 93, 225, 40);
+		title_label.setBounds(90, 93, 280, 25);
 		content_1.add(title_label);
+		
+		name_label.setBounds(50, 129, 62, 14);
+		content_1.add(name_label);
+		
+		name_field.setBounds(111, 125, 250, 25);
+		content_1.add(name_field);
+		
+		password_label.setBounds(35, 166, 100, 14);
+		content_1.add(password_label);
+		
+		password_field.setBounds(111, 161, 250, 25);
+		content_1.add(password_field);
+		
+		description_label.setBounds(50, 191, 201, 41);
+		content_1.add(description_label);
+		
+		enter_button.setBounds(261, 197, 100, 35);
+		content_1.add(enter_button);
 	
 		return;
 	
