@@ -4,7 +4,8 @@ public class Core {
 
 	public static void main(String[] args){
 	
-		GUI_Core.start_window();
+		DBConnector.DBConnection();
+		//GUI_Core.start_window();
 	
 	}
 
