@@ -2,8 +2,6 @@ package src;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,8 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class GUI_Core {
+
+	//VARIABLES
+	public static String new_information, old_information;
+	private static boolean correction_1 = false;
 
 	//FRAME #1
 	static JFrame window_1 = new JFrame("Log-In");
@@ -23,7 +26,7 @@ public class GUI_Core {
 	static JTextField username = new JTextField();
 	static JLabel password_label = new JLabel("Password:");
 	static JPasswordField password_field = new JPasswordField();
-	static JLabel description_label = new JLabel("pleas sign in to proced");
+	static JLabel description_label = new JLabel("pleas sign in to proceed");
 	static JButton enter_button = new JButton("Enter");
 
 	 //FRAME #2
@@ -41,6 +44,7 @@ public class GUI_Core {
 	static JTextField ID = new JTextField();
 	static JButton clear = new JButton("Clear All Filters");
 	static JButton entre = new JButton("Enter");
+	public static JLabel information_panel = new JLabel("Search for something....");
 
 	//CODE*************************************************
 	public static void start_window(){
@@ -124,17 +128,44 @@ public class GUI_Core {
 		content_2.add(clear);
 		clear.addActionListener(new ActionListener(){   public void actionPerformed(ActionEvent e) {
 		
-			
+			//to clear all filters
+			name.setText("");
+			date_1.setText("");
+			date_2.setText("");
+			ID.setText("");
 		
 		}});
 		
+		//ALL OF THE SEARCH HANDELERS
+	
+		while(correction_1 = false){
+		old_information = information_panel.getText();
+		new_information = information_panel.getText();
+		correction_1 = true;
+		}
+		if(new_information.equals(old_information)){ }else{ old_information = new_information;}//trying to update the information panel
+	
 		entre.setBounds(607, 66, 167, 38);
 		content_2.add(entre);
 		entre.addActionListener(new ActionListener(){   public void actionPerformed(ActionEvent e) {
 		
-			
+			//uses the filters to search the database
+			DBConnector.id = ID.getText();
+			DBConnector.name = name.getText();
+			DBConnector.date_1 = date_1.getText();
+			DBConnector.date_2 = date_2.getText();
+		
+			//runs a DBSearch
+			DBConnector.DBSearch();
 		
 		}});
+		
+		information_panel.setVerticalAlignment(SwingConstants.TOP);
+		information_panel.setBounds(10, 112, 764, 335);
+		content_2.add(information_panel);
+	
+		//WILL NOW START CHEKING FOR INFORMATION
+		information_panel.setText(old_information);
 	
 	}
 

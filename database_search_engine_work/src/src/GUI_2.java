@@ -9,8 +9,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class GUI_2 extends JFrame {
+
+	/*
+	 * 
+	 * 
+	 *IGNORE ALL OF THIS!!! 
+	 * 
+	 * 
+	 */
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -96,6 +106,11 @@ public class GUI_2 extends JFrame {
 		JLabel label_1 = new JLabel("");
 		label_1.setBounds(534, 0, 250, 15);
 		contentPane.add(label_1);
+		
+		JLabel lblFas = new JLabel("fdas");
+		lblFas.setBackground(Color.BLACK);
+		lblFas.setVerticalAlignment(SwingConstants.TOP);
+		lblFas.setBounds(10, 112, 764, 335);
+		contentPane.add(lblFas);
 	}
-
 }

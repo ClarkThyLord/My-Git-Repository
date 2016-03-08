@@ -15,6 +15,14 @@ import java.awt.event.MouseEvent;
 
 public class GUI_1 extends JFrame {
 
+	/*
+	 * 
+	 * 
+	 *IGNORE ALL OF THIS!!! 
+	 * 
+	 * 
+	 */
+
 	private JPanel contentPane;
 	private JPasswordField passwordField;
 	private JTextField textField;
