@@ -5,7 +5,7 @@ import java.sql.*;
 public class DBConnector {
 
 	//VARIABLES
-	static public String DBName, name, id, date_1, date_2;
+	static public String DBName, name, id, date_1, date_2, output;
 	static public String line = System.getProperty("line.separator");//Line Separator
 
 	static public boolean connection_check;
@@ -26,9 +26,8 @@ public class DBConnector {
 			System.out.println("Database Name: " + DBName + line + "Data:");
 			connection_check = true;
 		
-		}catch(Exception e){  connection_check = false; System.out.println("Error:" + line +  "Connection: " + connection_check + line + e);}finally { GUI_Core.start_window(); //If you fail to connect to a Database GUI_Core will continue to run}
+		}catch(Exception e){  connection_check = false; System.out.println("Error:" + line +  "Connection: " + connection_check + line + e);}finally { GUI_Core.start_window(); /*If you fail to connect to a Database GUI_Core will continue to run*/}
 	
-	}
 }
 
 	public static void DBSearch(){
@@ -37,7 +36,9 @@ public class DBConnector {
 		statement = connection.prepareStatement("");//what you want to search for
 		DB_result = statement.executeQuery();
 	
-		}catch(Exception e){ GUI_Core.new_information = ("Error:" + line +  "Connection: " + connection_check + line + e);}
+		//output = DB_result;
+	
+		}catch(Exception e){ output = ("Error:" + line +  "Connection: " + connection_check + line + e);}finally{ GUI_Core.update = true;}
 	}
 
 }

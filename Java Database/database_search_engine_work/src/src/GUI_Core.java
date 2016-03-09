@@ -14,8 +14,9 @@ import javax.swing.SwingConstants;
 public class GUI_Core {
 
 	//VARIABLES
-	public static String new_information, old_information;
-	private static boolean correction_1 = false;
+	public static String information = "Search for something....";
+	public static boolean update = false;
+	//private static boolean correction_1 = false;
 
 	//FRAME #1
 	static JFrame window_1 = new JFrame("Log-In");
@@ -138,12 +139,16 @@ public class GUI_Core {
 		
 		//ALL OF THE SEARCH HANDELERS
 	
-		while(correction_1 = false){
-		old_information = information_panel.getText();
-		new_information = information_panel.getText();
-		correction_1 = true;
-		}
-		if(new_information.equals(old_information)){ }else{ old_information = new_information;}//trying to update the information panel
+		/*while(correction_1 = false){
+		/old_information = information_panel.getText();
+		/new_information = information_panel.getText();
+		/correction_1 = true;
+		/}
+		/if(new_information.equals(old_information)){ }else{ old_information = new_information;}//trying to update the information panel
+		/
+		*/
+	
+		if(update = true){ information_panel.setText(DBConnector.output); update = false;}
 	
 		entre.setBounds(607, 66, 167, 38);
 		content_2.add(entre);
@@ -165,7 +170,7 @@ public class GUI_Core {
 		content_2.add(information_panel);
 	
 		//WILL NOW START CHEKING FOR INFORMATION
-		information_panel.setText(old_information);
+		information_panel.setText(information);
 	
 	}
 
