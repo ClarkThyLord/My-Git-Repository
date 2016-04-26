@@ -5,10 +5,14 @@ import java.sql.*;
 public class DBConnector {
 
 	//VARIABLES
-	static public String DBName, DBData,name, id, date_1, date_2, output;
+	static public String DBName, DBData, name, id, date_1, date_2, output;
 	static public String line = System.getProperty("line.separator");//Line Separator
+	//VARIABLES FOR PASSWORD CHECK
+	static public String username;
+	static public char[] password;
+	static public boolean username_check = false, password_check = false;
 
-	static public boolean connection_check;
+	static public boolean connection_check = false, login = false;
 	//DATABASE VARIABLES
 	static public Connection connection;
 	static public PreparedStatement statement;
@@ -34,7 +38,13 @@ public class DBConnector {
 
 	public static void login_check(){
 	
+		if(username.equals("gomuk-9399@hotmail.com")){ username_check = true; System.out.println("Username corresponds...");}else { username_check = false; System.out.println("Username doesn't corresponds...");} 
+		if(password.equals("creater")){ password_check = true; System.out.println("Password corresponds...");}else { password_check = false; System.out.println("Password dosen't corresponds...");}
+		if(username_check = true) { if(password_check = true) { login = true; System.out.println("Login was sucesfull...");}else { login = false; System.out.println("Login wasen't sucesfull...");}}
+	
 		//statement = connection.prepareStatement();
+	
+		return;
 	
 	}
 

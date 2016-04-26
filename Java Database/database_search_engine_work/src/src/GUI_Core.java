@@ -24,7 +24,7 @@ public class GUI_Core {
 	static JPanel content_1 = new JPanel();
 	static JLabel title_label = new JLabel("Welcome To A Java Database Search Engine");
 	static JLabel username_label = new JLabel("Name:");
-	static JTextField username = new JTextField();
+	static JTextField username_field = new JTextField();
 	static JLabel password_label = new JLabel("Password:");
 	static JPasswordField password_field = new JPasswordField();
 	static JLabel description_label = new JLabel("pleas sign in to proceed");
@@ -63,8 +63,8 @@ public class GUI_Core {
 		username_label.setBounds(50, 129, 62, 14);
 		content_1.add(username_label);
 		
-		username.setBounds(111, 125, 250, 25);
-		content_1.add(username);
+		username_field.setBounds(111, 125, 250, 25);
+		content_1.add(username_field);
 		
 		password_label.setBounds(35, 166, 100, 14);
 		content_1.add(password_label);
@@ -78,11 +78,31 @@ public class GUI_Core {
 		enter_button.setBounds(261, 197, 100, 35);
 		content_1.add(enter_button);
 		enter_button.addActionListener(new ActionListener(){   public void actionPerformed(ActionEvent e) {
+		
+			DBConnector.username = username_field.getText();
+			DBConnector.password = password_field.getPassword();
+		
+			DBConnector.login_check();
 			
-			window_1.dispose();
-			main_window();
+			if(DBConnector.login = true){
 			
+				window_1.dispose();
+				main_window();
+			
+			}
+			
+			if(DBConnector.login = false){
+			
+				description_label.setText("Wrong username or password!!!");
+			
+			}
+		
+			//window_1.dispose();
+			//main_window();
+		
 		}});
+	
+		
 	
 		return;
 	
