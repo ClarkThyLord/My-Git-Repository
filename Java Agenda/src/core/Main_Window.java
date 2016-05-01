@@ -12,6 +12,10 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import javax.swing.JScrollBar;
+import java.awt.Font;
 
 public class Main_Window extends JFrame {
 
@@ -115,5 +119,25 @@ public class Main_Window extends JFrame {
 		JLabel lblConnection = new JLabel("Connection:");
 		lblConnection.setBounds(10, 527, 764, 25);
 		contentPane.add(lblConnection);
+		
+		JButton btnNewButton = new JButton("+/-");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(729, 86, 50, 50);
+		contentPane.add(btnNewButton);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Microsoft YaHei", Font.BOLD, 16));
+		textArea.setEditable(false);
+		textArea.setBackground(Color.GRAY);
+		textArea.setBounds(10, 86, 709, 430);
+		contentPane.add(textArea);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBackground(Color.WHITE);
+		scrollBar.setBounds(739, 147, 35, 369);
+		contentPane.add(scrollBar);
 	}
 }
