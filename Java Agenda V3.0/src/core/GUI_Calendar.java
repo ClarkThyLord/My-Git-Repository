@@ -17,6 +17,8 @@ import java.awt.event.MouseEvent;
 public class GUI_Calendar extends JFrame {
 
 	private JPanel contentPane;
+	private JButton left;
+	private JButton right;
 
 	/**
 	 * Launch the application.
@@ -41,7 +43,7 @@ public class GUI_Calendar extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton left = new JButton("<");
+		left = new JButton("<");
 		left.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -54,7 +56,7 @@ public class GUI_Calendar extends JFrame {
 		left.setBounds(107, 11, 40, 40);
 		contentPane.add(left);
 		
-		JButton right = new JButton(">");
+		right = new JButton(">");
 		right.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
