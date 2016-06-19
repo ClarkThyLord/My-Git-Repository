@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import javax.swing.JScrollBar;
 import java.awt.Font;
+import javax.swing.JMenuBar;
 
 public class Main_Window extends JFrame {
 
@@ -46,6 +47,9 @@ public class Main_Window extends JFrame {
 	public Main_Window() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -117,7 +121,7 @@ public class Main_Window extends JFrame {
 		contentPane.add(information);
 		
 		JLabel lblConnection = new JLabel("Connection:");
-		lblConnection.setBounds(10, 527, 764, 25);
+		lblConnection.setBounds(10, 515, 764, 25);
 		contentPane.add(lblConnection);
 		
 		JButton btnNewButton = new JButton("+/-");

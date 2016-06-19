@@ -12,38 +12,36 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class DB_window extends JFrame {
+public class DB_Window extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField year_t;
 	private JTextField month_t;
 	private JTextField day_t;
 	private JTextField hour_t;
-	private JTextField minute_t;
-	private JTextField textField;
+	private JTextField min_t;
+	private JTextField name_t;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+	public static void DBW() {
 				try {
-					DB_window frame = new DB_window();
+					DB_Window frame = new DB_Window();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		});
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public DB_window() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public DB_Window() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 244);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,10 +54,40 @@ public class DB_window extends JFrame {
 		contentPane.add(operation);
 		
 		JButton add = new JButton("Add");
+		add.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				DB_Connection.name = name_t.getText();DB_Connection.year = year_t.getText();DB_Connection.month = month_t.getText();DB_Connection.day = day_t.getText();DB_Connection.hour = hour_t.getText();DB_Connection.min = min_t.getText();
+				DB_Connection.DB_ADD();
+				
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+				DB_Connection.name = name_t.getText();DB_Connection.year = year_t.getText();DB_Connection.month = month_t.getText();DB_Connection.day = day_t.getText();DB_Connection.hour = hour_t.getText();DB_Connection.min = min_t.getText();
+				DB_Connection.DB_ADD();
+				
+			}
+		});
 		add.setBounds(335, 52, 89, 64);
 		contentPane.add(add);
 		
 		JButton subtract = new JButton("Remove");
+		subtract.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				DB_Connection.name = name_t.getText();DB_Connection.year = year_t.getText();DB_Connection.month = month_t.getText();DB_Connection.day = day_t.getText();DB_Connection.hour = hour_t.getText();DB_Connection.min = min_t.getText();
+				
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+				DB_Connection.name = name_t.getText();DB_Connection.year = year_t.getText();DB_Connection.month = month_t.getText();DB_Connection.day = day_t.getText();DB_Connection.hour = hour_t.getText();DB_Connection.min = min_t.getText();
+				DB_Connection.DB_REMOVE();
+			}
+		});
 		subtract.setBounds(335, 127, 89, 64);
 		contentPane.add(subtract);
 		
@@ -103,18 +131,18 @@ public class DB_window extends JFrame {
 		hour_t.setBounds(58, 149, 267, 20);
 		contentPane.add(hour_t);
 		
-		minute_t = new JTextField();
-		minute_t.setColumns(10);
-		minute_t.setBounds(58, 174, 267, 20);
-		contentPane.add(minute_t);
+		min_t = new JTextField();
+		min_t.setColumns(10);
+		min_t.setBounds(58, 174, 267, 20);
+		contentPane.add(min_t);
 		
-		JLabel lblName = new JLabel("Name:");
-		lblName.setBounds(10, 52, 38, 14);
-		contentPane.add(lblName);
+		JLabel name_l = new JLabel("Name:");
+		name_l.setBounds(10, 52, 38, 14);
+		contentPane.add(name_l);
 		
-		textField = new JTextField();
-		textField.setBounds(58, 49, 267, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		name_t = new JTextField();
+		name_t.setBounds(58, 49, 267, 20);
+		contentPane.add(name_t);
+		name_t.setColumns(10);
 	}
 }
