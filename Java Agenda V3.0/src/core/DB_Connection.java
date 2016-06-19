@@ -30,11 +30,11 @@ public class DB_Connection {
 			Statement DB_statement = DB_connection.createStatement();
 			ResultSet DB_results = DB_statement.executeQuery("SELECT `name`, `year`, `month`, `day`, `hour`, `minute` FROM `time` WHERE 1");
 			
-			GUI_Startup.info.append("Hello, here is your agenda...");
+			//GUI_Startup.info.append("Hello, here is your agenda...");
 		
 			while(DB_results.next()){
 			
-				GUI_Startup.info.append(line + "Appoinment ~ Name: " + DB_results.getString("name") + line + DB_results.getString("month") + "," + DB_results.getString("day") + "," +DB_results.getString("year") + "," + DB_results.getString("hour") + ":" + DB_results.getString("minute"));
+				//GUI_Startup.info.append(line + "Appoinment ~ Name: " + DB_results.getString("name") + line + DB_results.getString("month") + "," + DB_results.getString("day") + "," +DB_results.getString("year") + "," + DB_results.getString("hour") + ":" + DB_results.getString("minute"));
 			
 			}
 		
