@@ -45,15 +45,18 @@ public class DB_Window extends JFrame {
 		setBounds(100, 100, 450, 244);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setVisible(true);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel operation = new JLabel("Adding or Removing Dates");
+		operation.setVisible(true);
 		operation.setFont(new Font("Yu Mincho Demibold", Font.PLAIN, 18));
 		operation.setBounds(107, 11, 235, 30);
 		contentPane.add(operation);
 		
 		JButton add = new JButton("Add");
+		add.setVisible(true);
 		add.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -74,6 +77,7 @@ public class DB_Window extends JFrame {
 		contentPane.add(add);
 		
 		JButton subtract = new JButton("Remove");
+		subtract.setVisible(true);
 		subtract.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -92,55 +96,67 @@ public class DB_Window extends JFrame {
 		contentPane.add(subtract);
 		
 		JLabel year_l = new JLabel("Year:");
+		year_l.setVisible(true);
 		year_l.setBounds(10, 77, 46, 14);
 		contentPane.add(year_l);
 		
 		JLabel month_l = new JLabel("Month:");
+		month_l.setVisible(true);
 		month_l.setBounds(10, 102, 46, 14);
 		contentPane.add(month_l);
 		
 		JLabel day_l = new JLabel("Day:");
+		day_l.setVisible(true);
 		day_l.setBounds(10, 127, 46, 14);
 		contentPane.add(day_l);
 		
 		JLabel hour_l = new JLabel("Hour:");
+		hour_l.setVisible(true);
 		hour_l.setBounds(10, 152, 46, 14);
 		contentPane.add(hour_l);
 		
 		JLabel minute_l = new JLabel("Minute:");
+		minute_l.setVisible(true);
 		minute_l.setBounds(10, 177, 46, 14);
 		contentPane.add(minute_l);
 		
 		year_t = new JTextField();
+		year_t.setVisible(true);
 		year_t.setBounds(58, 74, 267, 20);
 		contentPane.add(year_t);
 		year_t.setColumns(10);
 		
 		month_t = new JTextField();
+		month_t.setVisible(true);
 		month_t.setColumns(10);
 		month_t.setBounds(58, 99, 267, 20);
 		contentPane.add(month_t);
 		
 		day_t = new JTextField();
+		day_t.setVisible(true);
 		day_t.setColumns(10);
 		day_t.setBounds(58, 124, 267, 20);
 		contentPane.add(day_t);
 		
 		hour_t = new JTextField();
+		hour_t.setVisible(true);
 		hour_t.setColumns(10);
 		hour_t.setBounds(58, 149, 267, 20);
 		contentPane.add(hour_t);
 		
 		min_t = new JTextField();
+		min_t.setVisible(true);
 		min_t.setColumns(10);
 		min_t.setBounds(58, 174, 267, 20);
 		contentPane.add(min_t);
 		
 		JLabel name_l = new JLabel("Name:");
+		name_l.setVisible(true);
 		name_l.setBounds(10, 52, 38, 14);
 		contentPane.add(name_l);
 		
 		name_t = new JTextField();
+		name_t.setVisible(true);
 		name_t.setBounds(58, 49, 267, 20);
 		contentPane.add(name_t);
 		name_t.setColumns(10);
