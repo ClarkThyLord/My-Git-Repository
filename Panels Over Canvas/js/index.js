@@ -1,19 +1,14 @@
 var stage, content, update = false;
 
-
 // Setup everything
 function init() {
-  // Setup grid
-  var grid = new Muuri(".grid");
-
-  // Setup stage
-  stage = new createjs.Stage("master_canvas");
+  // Setup stage & content
+  stage = new createjs.Stage("main_canvas");
 
   // Setup resize
   window.addEventListener("resize", resize);
   resize();
 
-  // Setup content
   content = new createjs.Container();
   content.x = stage.canvas.width / 2;
   content.y = stage.canvas.height / 2;
@@ -31,6 +26,10 @@ function init() {
 
   // Setup ticker
   createjs.Ticker.addEventListener("tick", tick);
+
+  $(function() {
+    $("#dialog").dialog();
+  });
 }
 
 
