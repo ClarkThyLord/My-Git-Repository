@@ -1,0 +1,6 @@
+[package]
+name = "Hello_Rust"
+version = "0.1.0"
+authors = ["Christian Cuevas <ccpotential@gmail.com>"]
+
+[dependencies]
