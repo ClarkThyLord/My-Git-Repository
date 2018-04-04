@@ -1,0 +1,29 @@
+{
+  "name": "discord_bot_js",
+  "version": "1.0.0",
+  "description": "My very own Discord bot developed in Node.js with help from Discord.js!",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClarkThyLord/My-Git-Repository.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "node.js",
+    "discord.js"
+  ],
+  "author": "ClarkThyLord",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClarkThyLord/My-Git-Repository/issues"
+  },
+  "homepage": "https://github.com/ClarkThyLord/My-Git-Repository#readme"
+}
