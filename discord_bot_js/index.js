@@ -36,7 +36,6 @@ bot.on('message', msg => {
 
   // Find a command by it's name or aliases
   const command = bot.commands.get(command_name) || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command_name));
-
   if (!command) return;
 
   // Check that command requirements are met
@@ -53,6 +52,47 @@ bot.on('message', msg => {
   } catch (error) {
     console.error(error);
     msg.reply(' there was an error in trying to execute that command!');
+  }
+});
+
+// Setup reaction listening
+bot.msgs = new Discord.Collection();
+bot.on('messageReactionAdd', (reaction, user) => {
+  if (user.bot) return;
+
+  const msg = bot.msgs.get(reaction.message.id);
+  if (!msg) return;
+  if (msg.time <= ((new Date() - msg.msg.createdAt) / 1000)) return bot.msgs.delete(reaction.message.id);
+
+  if (['⬅', '➡'].includes(reaction.emoji.name)) {
+    const command = bot.commands.get(msg.command_name);
+    if (!command) return;
+
+    try {
+      command.reactionAdd(bot, msg, reaction);
+    } catch (error) {
+      console.error(error);
+      msg.reply(' there was an error in trying to execute that command!');
+    }
+  }
+});
+bot.on('messageReactionRemove', (reaction, user) => {
+  if (user.bot) return;
+
+  const msg = bot.msgs.get(reaction.message.id);
+  if (!msg) return;
+  if (msg.time <= ((new Date() - msg.msg.createdAt) / 1000)) return bot.msgs.delete(reaction.message.id);
+
+  if (['⬅', '➡'].includes(reaction.emoji.name)) {
+    const command = bot.commands.get(msg.command_name);
+    if (!command) return;
+
+    try {
+      command.reactionRemoved(bot, msg, reaction);
+    } catch (error) {
+      console.error(error);
+      msg.reply(' there was an error in trying to execute that command!');
+    }
   }
 });
 
