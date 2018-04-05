@@ -62,17 +62,17 @@ bot.on('messageReactionAdd', (reaction, user) => {
 
   const msg = bot.msgs.get(reaction.message.id);
   if (!msg) return;
-  if (msg.time <= ((new Date() - msg.msg.createdAt) / 1000)) return bot.msgs.delete(reaction.message.id);
+  if (msg.time <= ((new Date() - msg.reply.createdAt) / 1000)) return bot.msgs.delete(reaction.message.id);
 
-  if (['⬅', '➡'].includes(reaction.emoji.name)) {
+  if (msg.emojis.includes(reaction.emoji.name)) {
     const command = bot.commands.get(msg.command_name);
     if (!command) return;
 
     try {
-      command.reactionAdd(bot, msg, reaction);
+      command.onReaction(bot, msg, 'added', reaction);
     } catch (error) {
       console.error(error);
-      msg.reply(' there was an error in trying to execute that command!');
+      msg.original.reply(' there was an error in trying to execute that command!');
     }
   }
 });
@@ -81,17 +81,17 @@ bot.on('messageReactionRemove', (reaction, user) => {
 
   const msg = bot.msgs.get(reaction.message.id);
   if (!msg) return;
-  if (msg.time <= ((new Date() - msg.msg.createdAt) / 1000)) return bot.msgs.delete(reaction.message.id);
+  if (msg.time <= ((new Date() - msg.reply.createdAt) / 1000)) return bot.msgs.delete(reaction.message.id);
 
-  if (['⬅', '➡'].includes(reaction.emoji.name)) {
+  if (msg.emojis.includes(reaction.emoji.name)) {
     const command = bot.commands.get(msg.command_name);
     if (!command) return;
 
     try {
-      command.reactionRemoved(bot, msg, reaction);
+      command.onReaction(bot, msg, 'removed', reaction);
     } catch (error) {
       console.error(error);
-      msg.reply(' there was an error in trying to execute that command!');
+      msg.original.reply(' there was an error in trying to execute that command!');
     }
   }
 });

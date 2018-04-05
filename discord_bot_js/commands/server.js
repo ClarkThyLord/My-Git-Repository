@@ -5,8 +5,6 @@ module.exports = {
   args: false,
   guild_only: true,
   execute(bot, msg, args) {
-    const guild = msg.guild;
-
     msg.reply({
       embed: {
         color: 3447003,
@@ -14,15 +12,15 @@ module.exports = {
           name: bot.user.username,
           icon_url: bot.user.avatarURL,
         },
-        title: guild.name,
+        title: msg.guild.name,
         url: 'https://discord.js.org/#/',
         thumbnail: {
-          url: guild.iconURL,
+          url: msg.guild.iconURL,
         },
-        description: `Just another Discord Server with **${guild.memberCount}** members!`,
+        description: `Just another Discord Server with **${msg.guild.memberCount}** members!`,
         fields: [{
           name: 'Server Information',
-          value: `Server Owner: *${guild.owner.user.tag}*\nServer Creation: *${guild.createdAt.toDateString()}*`,
+          value: `Server Owner: *${msg.guild.owner.user.tag}*\nServer Creation: *${msg.guild.createdAt.toDateString()}*`,
         }],
         timestamp: new Date(),
         footer: {
