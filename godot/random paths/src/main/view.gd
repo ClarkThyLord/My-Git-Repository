@@ -19,4 +19,7 @@ func _process(delta):
 	
 	movement = (movement.normalized() * speed) * delta
 	
+	if Input.is_action_pressed('shift'):
+		movement *= 1.75
+	
 	self.translate(movement)
