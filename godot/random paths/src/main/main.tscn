@@ -53,11 +53,13 @@ collision_layer = 1
 collision_mask = 1
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 327689, 0, 0, 393225, 0, 0 )
+tile_data = PoolIntArray(  )
 script = ExtResource( 3 )
 _sections_unfolded = [ "Cell" ]
 __meta__ = {
 "_edit_lock_": true
 }
+columns = 10
+rows = 10
 
 
