@@ -22,4 +22,4 @@ func _process(delta):
 	if Input.is_action_pressed('shift'):
 		movement *= 1.75
 	
-	self.translate(movement)
+	position += movement
