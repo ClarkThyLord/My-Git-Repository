@@ -7,8 +7,8 @@ var map = []
 
 func _ready():
 	map = generate_map(columns, rows)
-	print(var2str(map))
 	setup_map(map)
+	generate_path(map)
 
 func generate_map(columns, rows):
 	var new_map = []
@@ -18,6 +18,12 @@ func generate_map(columns, rows):
 			new_map[row].append((randi() % 2))
 	
 	return new_map
+
+func generate_path(map):
+	var height = map.size()
+	var width = 0
+	if height > 0:
+		width = map[0].size()
 
 func setup_map(map):
 	var position = Vector2()
