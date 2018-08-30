@@ -7,7 +7,7 @@
 [sub_resource type="PlaneMesh" id=1]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
-size = Vector2( 26, 26 )
+size = Vector2( 1, 1 )
 subdivide_width = 0
 subdivide_depth = 0
 
@@ -60,6 +60,7 @@ raycast_length = 100
 
 [node name="plane" type="MeshInstance" parent="." index="2"]
 
+transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0 )
 layers = 1
 material_override = null
 cast_shadow = 1
