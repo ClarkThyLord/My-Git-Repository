@@ -14,4 +14,8 @@ func _process(delta):
 		
 		if result.has('position'):
 			var position = world_to_map(result.position)
-			set_cell_item(position.x, position.y, position.z, 0)
+			
+			if Input.is_action_pressed("ctrl_k"):
+				set_cell_item(position.x, position.y, position.z, -1)
+			else:
+				set_cell_item(position.x, position.y, position.z, 0)
