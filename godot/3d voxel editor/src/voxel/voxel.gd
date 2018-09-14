@@ -1,6 +1,7 @@
 extends MeshInstance
 
-export (Color) var color = Color(0, 0, 0)
+export (Color) var color = Color(255, 0, 0, 1)
 
 func _ready():
 	pass
+	# TODO Material Albedo to Color given
