@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Simple server with Expres.js :v",
+  "main": "./src/index.js",
+  "scripts": {
+    "server": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClarkThyLord/My-Git-Repository.git"
+  },
+  "keywords": [
+    "server",
+    "express",
+    "javascript"
+  ],
+  "author": "ClarkThyLord",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ClarkThyLord/My-Git-Repository/issues"
+  },
+  "homepage": "https://github.com/ClarkThyLord/My-Git-Repository#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
