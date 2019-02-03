@@ -3,8 +3,11 @@ extends Spatial
 
 export(int) var RAY_LENGTH = 1000
 
-export(float) var VOXEL_SCALE = 0.25
+export(float) var VOXEL_SCALE = 0.25 setget update_scale
 export(Color) var VOXEL_COLOR = Color(1, 1, 1, 1)
+
+var GRID_RATE = 0.25 * (VOXEL_SCALE / 0.125)
+var GRID_CORRECTION = 0.25 * (VOXEL_SCALE / 0.25)
 
 var CURSOR
 export(bool) var CURSOR_VISIBLE = true
@@ -57,8 +60,13 @@ func light_color(value):
 		LIGHT_COLOR = value
 		$light.light_color = value
 
+func update_scale(value):
+	VOXEL_SCALE = value
+	GRID_RATE = 0.25 * (VOXEL_SCALE / 0.125)
+	GRID_CORRECTION = 0.25 * (VOXEL_SCALE / 0.25)
+
 func pos_to_grid(position):
-	return ((position / 0.5).floor() * 0.5) + (Vector3(0.25, 0.25, 0.25))
+	return ((position / GRID_RATE).floor() * GRID_RATE) + (Vector3(GRID_CORRECTION, GRID_CORRECTION, GRID_CORRECTION))
 
 func Cursor():
 	CURSOR = MeshInstance.new()
