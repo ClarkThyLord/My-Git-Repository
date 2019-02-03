@@ -58,7 +58,7 @@ func light_color(value):
 		$light.light_color = value
 
 func pos_to_grid(position):
-	return ((position / (VOXEL_SCALE * 2)).floor() * (VOXEL_SCALE * 2)) + (Vector3(VOXEL_SCALE, VOXEL_SCALE, VOXEL_SCALE) / 2)
+	return ((position / 0.5).floor() * 0.5) + (Vector3(0.25, 0.25, 0.25))
 
 func Cursor():
 	CURSOR = MeshInstance.new()
