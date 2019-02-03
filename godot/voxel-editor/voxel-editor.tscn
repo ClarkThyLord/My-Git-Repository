@@ -74,7 +74,7 @@ script = ExtResource( 1 )
 DOING = "add"
 RAY_LENGTH = 1000
 VOXEL_SCALE = 0.25
-VOXEL_COLOR = Color( 0.652344, 0.0560608, 0.0560608, 1 )
+VOXEL_COLOR = Color( 1, 1, 1, 1 )
 CURSOR_VISIBLE = true
 CURSOR_COLOR = Color( 1, 0, 0, 0.6 )
 PLANE_VISIBLE = true
@@ -176,7 +176,7 @@ group = null
 text = "Default"
 flat = false
 align = 1
-color = Color( 0.652344, 0.0560608, 0.0560608, 1 )
+color = Color( 1, 1, 1, 1 )
 edit_alpha = true
 
 [node name="paint_color" type="ColorPickerButton" parent="controls/options/voxel" index="1"]
