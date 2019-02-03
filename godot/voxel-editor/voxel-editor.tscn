@@ -67,9 +67,6 @@ data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0,
 [node name="voxel-editor" type="Spatial" index="0"]
 
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 RAY_LENGTH = 1000
 VOXEL_SCALE = 0.25
 VOXEL_COLOR = Color( 1, 1, 1, 1 )

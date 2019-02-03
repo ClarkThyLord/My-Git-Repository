@@ -6,9 +6,6 @@ export(int) var RAY_LENGTH = 1000
 export(float) var VOXEL_SCALE = 0.25 setget update_scale
 export(Color) var VOXEL_COLOR = Color(1, 1, 1, 1)
 
-var GRID_RATE = 0.25 * (VOXEL_SCALE / 0.125)
-var GRID_CORRECTION = 0.25 * (VOXEL_SCALE / 0.25)
-
 var CURSOR
 export(bool) var CURSOR_VISIBLE = true
 export(Color) var CURSOR_COLOR = Color(1, 0, 0, 0.6)
@@ -18,6 +15,9 @@ export(Color) var PLANE_COLOR = Color(1, 1, 1, 1) setget plane_color
 
 export(bool) var LIGHT_VISIBLE = true setget light_visibility
 export(Color) var LIGHT_COLOR = Color(1, 1, 1, 1) setget light_color
+
+var GRID_RATE = 0.25 * (VOXEL_SCALE / 0.125)
+var GRID_CORRECTION = 0.25 * (VOXEL_SCALE / 0.25)
 
 func _ready():
 	Cursor()
@@ -73,8 +73,9 @@ func Cursor():
 	CURSOR.scale = Vector3(VOXEL_SCALE, VOXEL_SCALE, VOXEL_SCALE)
 	CURSOR.mesh = CubeMesh.new()
 	
-	CURSOR.set_surface_material(0, SpatialMaterial.new())
-	CURSOR.get_surface_material(0).albedo_color = CURSOR_COLOR
+	CURSOR.material_override = SpatialMaterial.new()
+	CURSOR.material_override.flags_transparent = true
+	CURSOR.material_override.albedo_color = CURSOR_COLOR
 	
 	add_child(CURSOR)
 
@@ -91,8 +92,8 @@ func Voxel(options={}):
 	voxel.mesh = CubeMesh.new()
 	voxel.create_convex_collision()
 	
-	voxel.set_surface_material(0, SpatialMaterial.new())
-	voxel.get_surface_material(0).albedo_color = options.color if options.has('color') else VOXEL_COLOR
+	voxel.material_override = SpatialMaterial.new()
+	voxel.material_override.albedo_color = options.color if options.has('color') else VOXEL_COLOR
 	
 	return voxel
 
