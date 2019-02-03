@@ -59,7 +59,6 @@ uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
-_sections_unfolded = [ "Albedo" ]
 
 [sub_resource type="ConcavePolygonShape" id=2]
 
@@ -74,10 +73,45 @@ __meta__ = {
 RAY_LENGTH = 1000
 VOXEL_SCALE = 0.25
 VOXEL_COLOR = Color( 1, 1, 1, 1 )
+CURSOR_VISIBLE = true
+CURSOR_COLOR = Color( 1, 0, 0, 0.6 )
 PLANE_VISIBLE = true
 PLANE_COLOR = Color( 1, 1, 1, 1 )
+LIGHT_VISIBLE = true
+LIGHT_COLOR = Color( 1, 1, 1, 1 )
 
-[node name="view" type="Camera" parent="." index="0"]
+[node name="light" type="DirectionalLight" parent="." index="0"]
+
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 5.40124, 0 )
+layers = 1
+light_color = Color( 1, 1, 1, 1 )
+light_energy = 1.0
+light_indirect_energy = 1.0
+light_negative = false
+light_specular = 0.5
+light_bake_mode = 1
+light_cull_mask = -1
+shadow_enabled = false
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_bias = 0.1
+shadow_contact = 0.0
+shadow_reverse_cull_face = false
+editor_only = false
+directional_shadow_mode = 2
+directional_shadow_split_1 = 0.1
+directional_shadow_split_2 = 0.2
+directional_shadow_split_3 = 0.5
+directional_shadow_blend_splits = false
+directional_shadow_normal_bias = 0.8
+directional_shadow_bias_split_scale = 0.25
+directional_shadow_depth_range = 0
+directional_shadow_max_distance = 200.0
+_sections_unfolded = [ "Light", "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="view" type="Camera" parent="." index="1"]
 
 transform = Transform( 1, 0, 0, 0, 0.529919, 0.848048, 0, -0.848048, 0.529919, 0, 10, 10 )
 keep_aspect = 1
@@ -97,7 +131,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="plane" type="MeshInstance" parent="." index="1"]
+[node name="plane" type="MeshInstance" parent="." index="2"]
 
 editor/display_folded = true
 transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
