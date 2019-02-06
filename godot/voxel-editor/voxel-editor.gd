@@ -107,10 +107,12 @@ func _input(event):
 	if (event is InputEventMouseButton || event is InputEventScreenTouch) and event.pressed and event.button_index == 1:
 		var hit = raycast(event)
 		if (hit):
-			if (DOING == 'add'):
+			if DOING == 'add':
 				add_voxel(hit.position + (hit.normal * (VOXEL_SCALE / 2)))
-			elif (DOING == 'remove'):
+			elif DOING == 'remove':
 				remove_voxel(hit.collider.get_parent())
+			elif DOING == 'paint':
+				paint_voxel(hit.collider.get_parent())
 	
 	if (event is InputEventMouseMotion || event is InputEventScreenDrag):
 		var hit = raycast(event)
@@ -157,6 +159,10 @@ func add_voxel(position, options={}):
 	add_child(voxel)
 	voxel.translation = pos_to_grid(position)
 
-func remove_voxel(object, options={}):
-	if (object.is_in_group('voxels')):
-		remove_child(object)
+func remove_voxel(voxel, options={}):
+	if (voxel.is_in_group('voxels')):
+		remove_child(voxel)
+
+func paint_voxel(voxel, options={}):
+	if (voxel.is_in_group('voxels')):
+		voxel.material_override.albedo_color = VOXEL_COLOR
