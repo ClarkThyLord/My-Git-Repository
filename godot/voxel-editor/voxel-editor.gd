@@ -18,10 +18,10 @@ func update_scale(value):
 	GRID_CORRECTION = 0.25 * (VOXEL_SCALE / 0.25)
 
 export(Color) var VOXEL_COLOR = Color(1, 1, 1, 1) setget update_voxel_color
-func update_voxel_color(value):
+func update_voxel_color(value, update_gui=true):
 	VOXEL_COLOR = value
 	
-	if has_node('controls/options/voxel/default_color'):
+	if update_gui && has_node('controls/options/voxel/default_color'):
 		$controls/options/voxel/default_color.color = value
 
 
@@ -86,7 +86,7 @@ func _ready():
 	
 	$controls/options/voxel_view.connect('toggled', self, 'on_voxel_view')
 	
-	$controls/options/voxel/default_color.connect('color_changed', self, 'update_voxel_color')
+	$controls/options/voxel/default_color.connect('color_changed', self, 'update_voxel_color', [false])
 	
 	$controls/options/voxel/add.connect('button_down', self, 'update_doing', ['add'])
 	$controls/options/voxel/remove.connect('button_down', self, 'update_doing', ['remove'])
@@ -107,7 +107,12 @@ func _input(event):
 	if (event is InputEventMouseButton || event is InputEventScreenTouch) and event.pressed and event.button_index == 1:
 		var hit = raycast(event)
 		if (hit):
-			add_voxel(hit.position + (hit.normal * (VOXEL_SCALE / 2)))
+			if DOING == 'add':
+				add_voxel(hit.position + (hit.normal * (VOXEL_SCALE / 2)))
+			elif DOING == 'remove':
+				remove_voxel(hit.collider.get_parent())
+			elif DOING == 'paint':
+				paint_voxel(hit.collider.get_parent())
 	
 	if (event is InputEventMouseMotion || event is InputEventScreenDrag):
 		var hit = raycast(event)
@@ -144,6 +149,8 @@ func Voxel(options={}):
 	voxel.material_override = SpatialMaterial.new()
 	voxel.material_override.albedo_color = options.color if options.has('color') else VOXEL_COLOR
 	
+	voxel.add_to_group('voxels')
+	
 	return voxel
 
 func add_voxel(position, options={}):
@@ -152,5 +159,10 @@ func add_voxel(position, options={}):
 	add_child(voxel)
 	voxel.translation = pos_to_grid(position)
 
-func remove_voxel(position, options={}):
-	pass
+func remove_voxel(voxel, options={}):
+	if (voxel.is_in_group('voxels')):
+		remove_child(voxel)
+
+func paint_voxel(voxel, options={}):
+	if (voxel.is_in_group('voxels')):
+		voxel.material_override.albedo_color = VOXEL_COLOR

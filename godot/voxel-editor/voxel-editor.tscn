@@ -138,13 +138,12 @@ align = 0
 
 [node name="voxel" type="HBoxContainer" parent="controls/options" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 28.0
-margin_right = 418.0
+margin_right = 297.0
 margin_bottom = 24.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -181,6 +180,7 @@ edit_alpha = true
 
 [node name="paint_color" type="ColorPickerButton" parent="controls/options/voxel" index="1"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -204,6 +204,7 @@ flat = false
 align = 1
 color = Color( 1, 1, 1, 1 )
 edit_alpha = true
+_sections_unfolded = [ "Visibility" ]
 
 [node name="add" type="Button" parent="controls/options/voxel" index="2"]
 
@@ -211,8 +212,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 110.0
-margin_right = 165.0
+margin_left = 62.0
+margin_right = 117.0
 margin_bottom = 24.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -236,8 +237,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 169.0
-margin_right = 251.0
+margin_left = 121.0
+margin_right = 203.0
 margin_bottom = 24.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -261,8 +262,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 255.0
-margin_right = 317.0
+margin_left = 207.0
+margin_right = 269.0
 margin_bottom = 24.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -282,12 +283,13 @@ align = 1
 
 [node name="select" type="Button" parent="controls/options/voxel" index="5"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 321.0
-margin_right = 390.0
+margin_left = 273.0
+margin_right = 342.0
 margin_bottom = 24.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -307,12 +309,13 @@ align = 1
 
 [node name="settings" type="Button" parent="controls/options" index="2"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 422.0
-margin_right = 485.0
+margin_left = 301.0
+margin_right = 364.0
 margin_bottom = 24.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
