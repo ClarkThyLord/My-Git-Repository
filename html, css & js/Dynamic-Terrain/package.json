@@ -1,0 +1,16 @@
+{
+  "name": "dynamic-terrain",
+  "version": "0.0.1",
+  "description": "Dynamic terrain maid with noise!",
+  "keywords": [
+    "js",
+    "three.js",
+    "3d"
+  ],
+  "author": "ClarkThyLord",
+  "license": "MIT",
+  "dependencies": {
+    "simplex-noise": "^2.4.0",
+    "three": "^0.102.1"
+  }
+}
