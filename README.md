@@ -1,7 +1,7 @@
 My Git Repository
 =================
 
-> Hello GitHub!
+> Hello GitHub, it's me ClarkThyLord!
 
 # About
 
