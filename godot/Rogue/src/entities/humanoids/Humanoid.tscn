@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Entity
+class_name Humanoid
+
+func _ready(): pass
+"
+
+[node name="Humanoid" type="Spatial"]
+script = SubResource( 1 )

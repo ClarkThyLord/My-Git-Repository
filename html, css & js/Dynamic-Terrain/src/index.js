@@ -69,6 +69,9 @@ document.body.appendChild(RENDERER.domElement);
 var DYNAMICTERRAIN = new DynamicTerrain();
 SCENE.add(DYNAMICTERRAIN.terrain);
 
+// DAT GUI
+const GUI = new dat.GUI();
+
 // EVENTS
 window.addEventListener('resize', redraw, false);
 
