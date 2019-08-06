@@ -31,7 +31,7 @@ func set_active(active : bool) -> void:
 export(bool) var Boundless : bool = true
 
 
-export(int) var BaseSize : int = 100 setget set_base_size
+export(int) var BaseSize : int = 160 setget set_base_size
 func set_base_size(size : int) -> void:
 	BaseSize = size
 	if Base:
@@ -42,7 +42,7 @@ func set_base_texture(texture : Texture) -> void:
 	BaseTexture = texture
 	if Base: Base.texture = texture
 
-export(int) var TopSize : int = 25 setget set_top_size
+export(int) var TopSize : int = 100 setget set_top_size
 func set_top_size(size : int) -> void:
 	TopSize = size
 	if Top:
