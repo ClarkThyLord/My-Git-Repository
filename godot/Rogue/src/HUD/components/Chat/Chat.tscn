@@ -14,7 +14,7 @@ onready var Hide : Button = $VBoxContainer/HBoxContainer/Hide
 
 
 # Core
-func add_msg(msg : String) -> void: Output.bbcode_text += '\\n' + msg
+func add_msg(msg : String) -> void: if msg.length() > 0: Output.bbcode_text += '\\n' + msg
 
 func _on_Input_entered(new_text) -> void:
 	add_msg(new_text)
