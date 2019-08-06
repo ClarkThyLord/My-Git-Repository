@@ -56,21 +56,18 @@ func _ready():
 
 func _input(event):
 	if Active and event is InputEventMouseMotion:
-		event = Base.make_input_local(event)
-		Top.set_position(event.position - Top.get_size() / 2)
+		if Boundless or Base.get_rect().has_point(event.position):
+			event = Base.make_input_local(event)
+			Top.set_position(event.position - Top.get_size() / 2)
+		else: set_active(false)
+	elif Active and event is InputEventMouseButton and not event.is_pressed(): set_active(false)
 
 
 func _on_VirtualJoystick_input(event):
-	if event is InputEventMouseButton and event.pressed:
+	if not Active and event is InputEventMouseButton and event.is_pressed():
 		set_active(true)
 		event = make_input_local(event)
 		Base.set_position(event.position - Base.get_size() / 2)
-
-
-func _on_Base_input(event): pass
-#	if Active and event is InputEventMouseMotion:
-#		event = make_input_local(event)
-#		Top.set_position(event.position - Top.get_size() / 2)
 
 func _on_Base_mouse_exited():
 	if not Boundless: set_active(false)
