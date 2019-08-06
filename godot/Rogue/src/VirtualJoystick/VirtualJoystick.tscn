@@ -5,15 +5,14 @@
 [ext_resource path="res://assets/VirtualJoysticks/dark/top.png" type="Texture" id=3]
 
 [node name="VirtualJoystick" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 160.0
+margin_bottom = 160.0
 mouse_filter = 1
 script = ExtResource( 1 )
 BaseTexture = ExtResource( 2 )
 TopTexture = ExtResource( 3 )
 
 [node name="Base" type="TextureRect" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -30,9 +29,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -50.0
+margin_left = -48.0
 margin_top = -50.0
-margin_right = 50.0
+margin_right = 48.0
 margin_bottom = 50.0
 mouse_filter = 2
 texture = ExtResource( 3 )

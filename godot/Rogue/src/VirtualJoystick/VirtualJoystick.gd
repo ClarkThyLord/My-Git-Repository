@@ -61,6 +61,7 @@ func _ready():
 	set_base_texture(BaseTexture)
 	set_top_size(TopSize)
 	set_top_texture(TopTexture)
+	Base.visible = Engine.editor_hint
 
 
 func _input(event):
@@ -73,8 +74,6 @@ func _input(event):
 			var joystick_position = Vector2(-_distance * cos(angle), _distance * sin(angle))
 			JoystickPosition = joystick_position / (Base.get_size().x / 2)
 			
-			print('Angle: ' + str(angle) + ' | Distance: ' + str(distance) + ' | JS_P: ' + str(joystick_position) + ' | JSP: ' + str(JoystickPosition))
-			
 			Top.set_position(Base.get_size() / 2 + Vector2(joystick_position.x, -joystick_position.y) - Top.get_size() / 2)
 		else: set_active(false)
 	elif Active and event is InputEventMouseButton and not event.is_pressed(): set_active(false)
@@ -83,7 +82,6 @@ func _input(event):
 func _on_VirtualJoystick_input(event):
 	if not Active and event is InputEventMouseButton and event.is_pressed():
 		set_active(true)
-		event = make_input_local(event)
 		Base.set_position(event.position - Base.get_size() / 2)
 
 func _on_Base_mouse_exited():
