@@ -67,10 +67,15 @@ func _input(event):
 	if Active and event is InputEventMouseMotion:
 		if Boundless or Base.get_rect().has_point(event.position):
 			event = Base.make_input_local(event)
-			Top.set_position(event.position - Top.get_size() / 2)
-			angle = (Base.rect_global_position + Base.get_size() / 2).angle_to_point(Top.rect_global_position + Top.get_size() / 2)
-			distance = clamp((Base.rect_global_position + Base.get_size() / 2).distance_to(Top.rect_global_position + Top.get_size() / 2), 0, Base.get_size().x / 2)
-			JoystickPosition = (Vector2(-distance * cos(angle), distance * sin(angle)) / (Base.get_size().x / 2))
+			angle = (Base.get_size() / 2).angle_to_point(event.position)
+			var _distance = clamp((Base.get_size() / 2).distance_to(event.position), 0, Base.get_size().x / 2)
+			distance = _distance / (Base.get_size().x / 2)
+			var joystick_position = Vector2(-_distance * cos(angle), _distance * sin(angle))
+			JoystickPosition = joystick_position / (Base.get_size().x / 2)
+			
+			print('Angle: ' + str(angle) + ' | Distance: ' + str(distance) + ' | JS_P: ' + str(joystick_position) + ' | JSP: ' + str(JoystickPosition))
+			
+			Top.set_position(Base.get_size() / 2 + Vector2(joystick_position.x, -joystick_position.y) - Top.get_size() / 2)
 		else: set_active(false)
 	elif Active and event is InputEventMouseButton and not event.is_pressed(): set_active(false)
 
