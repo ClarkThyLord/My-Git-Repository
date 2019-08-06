@@ -10,12 +10,21 @@ onready var Top : TextureRect = $Base/Top
 
 
 # Declarations
+var angle : float = 0
+var distance : float = 0
+var JoystickPosition : Vector2 = Vector2()
+
+
 signal activated(active)
 var Active : bool = false setget set_active
 func set_active(active : bool) -> void:
 	Active = active
 	Top.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
 	Base.visible = active
+	if not active:
+		angle = 0
+		distance = 0
+		JoystickPosition = Vector2()
 	emit_signal('activated', active)
 
 
@@ -59,6 +68,9 @@ func _input(event):
 		if Boundless or Base.get_rect().has_point(event.position):
 			event = Base.make_input_local(event)
 			Top.set_position(event.position - Top.get_size() / 2)
+			angle = (Base.rect_global_position + Base.get_size() / 2).angle_to_point(Top.rect_global_position + Top.get_size() / 2)
+			distance = clamp((Base.rect_global_position + Base.get_size() / 2).distance_to(Top.rect_global_position + Top.get_size() / 2), 0, Base.get_size().x / 2)
+			JoystickPosition = (Vector2(-distance * cos(angle), distance * sin(angle)) / (Base.get_size().x / 2))
 		else: set_active(false)
 	elif Active and event is InputEventMouseButton and not event.is_pressed(): set_active(false)
 
