@@ -69,14 +69,6 @@ func _ready():
 
 
 func _input(event):
-#	if not touch_index and event is InputEventScreenTouch and event.is_pressed():
-#		touch_index = event.index
-#		set_active(true)
-#	elif event is InputEventScreenTouch and event.index == touch_index and not event.is_pressed():
-#		touch_index = null
-#		set_active(false)
-	
-	
 	if Active and ((event is InputEventMouseMotion) or (event is InputEventScreenDrag and event.index == touch_index)):
 		if Boundless or Base.get_rect().has_point(event.position):
 			event = Base.make_input_local(event)
@@ -89,34 +81,6 @@ func _input(event):
 			Top.set_position(Base.get_size() / 2 + Vector2(joystick_position.x, -joystick_position.y) - Top.get_size() / 2)
 		else: set_active(false)
 	elif Active and ((event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.pressed) or (event is InputEventScreenTouch and event.index == touch_index and not event.pressed)): set_active(false)
-	
-	
-#	if Active and event is InputEventScreenDrag and event.index == touch_index:
-#		if Boundless or Base.get_rect().has_point(event.position):
-#			event = Base.make_input_local(event)
-#			angle = (Base.get_size() / 2).angle_to_point(event.position)
-#			var _distance = clamp((Base.get_size() / 2).distance_to(event.position), 0, Base.get_size().x / 2)
-#			distance = _distance / (Base.get_size().x / 2)
-#			var joystick_position = Vector2(-_distance * cos(angle), _distance * sin(angle))
-#			JoystickPosition = joystick_position / (Base.get_size().x / 2)
-#
-#			Top.set_position(Base.get_size() / 2 + Vector2(joystick_position.x, -joystick_position.y) - Top.get_size() / 2)
-#		else: set_active(false)
-#	elif Active and event is InputEventScreenTouch and event.index == touch_index and not event.is_pressed():
-#		touch_index = null
-#		set_active(false)
-#	elif Active and event is InputEventMouseMotion:
-#		if Boundless or Base.get_rect().has_point(event.position):
-#			event = Base.make_input_local(event)
-#			angle = (Base.get_size() / 2).angle_to_point(event.position)
-#			var _distance = clamp((Base.get_size() / 2).distance_to(event.position), 0, Base.get_size().x / 2)
-#			distance = _distance / (Base.get_size().x / 2)
-#			var joystick_position = Vector2(-_distance * cos(angle), _distance * sin(angle))
-#			JoystickPosition = joystick_position / (Base.get_size().x / 2)
-#
-#			Top.set_position(Base.get_size() / 2 + Vector2(joystick_position.x, -joystick_position.y) - Top.get_size() / 2)
-#		else: set_active(false)
-#	elif Active and event is InputEventMouseButton and not event.is_pressed(): set_active(false)
 
 
 func _on_VirtualJoystick_input(event):
@@ -128,13 +92,6 @@ func _on_VirtualJoystick_input(event):
 		elif event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
 			Base.set_position(event.position - Base.get_size() / 2)
 			set_active(true)
-#	if not touch_index and event is InputEventScreenTouch and event.is_pressed():
-#		touch_index = event.index
-#		Base.set_position(event.position - Base.get_size() / 2)
-#		set_active(true)
-#	elif not Active and event is InputEventMouseButton and event.is_pressed():
-#		Base.set_position(event.position - Base.get_size() / 2)
-#		set_active(true)
 
 func _on_Base_mouse_exited():
 	if not Boundless: set_active(false)
