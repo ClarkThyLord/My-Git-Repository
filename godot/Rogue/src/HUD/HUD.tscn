@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/HUD/components/Chat/Chat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/VirtualJoystick/VirtualJoystick.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/VirtualJoysticks/dark/base.png" type="Texture" id=2]
+[ext_resource path="res://assets/VirtualJoysticks/dark/top.png" type="Texture" id=3]
+[ext_resource path="res://src/HUD/components/Chat/Chat.tscn" type="PackedScene" id=4]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -8,8 +11,8 @@ script/source = "extends Control
 
 
 # References
-onready var Chat : Control = $Chat
-onready var ChatToggle : Button = $ChatToggle
+onready var Chat : Control = $Base/Chat
+onready var ChatToggle : Button = $Base/ChatToggle
 
 
 
@@ -25,14 +28,48 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = SubResource( 1 )
 
-[node name="ChatToggle" type="Button" parent="."]
+[node name="VirtualControls" type="Control" parent="."]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="VirtualJoystickL" parent="VirtualControls" instance=ExtResource( 1 )]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -160.0
+margin_bottom = 0.0
+Constant = true
+BaseTexture = ExtResource( 2 )
+TopTexture = ExtResource( 3 )
+
+[node name="VirtualJoystickR" parent="VirtualControls" instance=ExtResource( 1 )]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -160.0
+margin_top = -160.0
+margin_right = 0.0
+margin_bottom = 0.0
+Constant = true
+BaseTexture = ExtResource( 2 )
+TopTexture = ExtResource( 3 )
+
+[node name="Base" type="Control" parent="."]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="ChatToggle" type="Button" parent="Base"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -20.0
 margin_right = 40.0
 text = "Chat"
 
-[node name="Chat" parent="." instance=ExtResource( 1 )]
+[node name="Chat" parent="Base" instance=ExtResource( 4 )]
 visible = false
 anchor_top = 1.0
 anchor_right = 0.0
@@ -40,5 +77,5 @@ margin_top = -276.0
 margin_right = 435.0
 margin_bottom = -1.0
 rect_min_size = Vector2( 435, 275 )
-[connection signal="pressed" from="ChatToggle" to="." method="_on_ChatToggle_pressed"]
-[connection signal="visibility_changed" from="Chat" to="." method="_on_Chat_visibility_changed"]
+[connection signal="pressed" from="Base/ChatToggle" to="." method="_on_ChatToggle_pressed"]
+[connection signal="visibility_changed" from="Base/Chat" to="." method="_on_Chat_visibility_changed"]

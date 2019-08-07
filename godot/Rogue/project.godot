@@ -26,6 +26,10 @@ boot_splash/image="res://assets/Rogue.splash.png"
 boot_splash/bg_color=Color( 0.937255, 0.937255, 0.937255, 1 )
 config/icon="res://assets/Rogue.icon.png"
 
+[autoload]
+
+HUD="*res://src/HUD/HUD.tscn"
+
 [input]
 
 player_forward={

@@ -26,13 +26,17 @@ func set_possessing_entity(entity) -> void:
 func _ready(): Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
-	if not Possessing:
+	if event is InputEventKey and not event.pressed:
+		match event.scancode:
+			KEY_ESCAPE: Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED else Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	if not Possessing and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotation.x += deg2rad(event.relative.normalized().y * ViewingSpeed * -1)
 			rotation.y += deg2rad(event.relative.normalized().x * ViewingSpeed * -1)
 
 func _process(delta):
-	if not Possessing:
+	if not Possessing and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		var movement = Vector3()
 		
 		if Input.is_action_pressed('player_forward'): movement += Vector3.FORWARD
