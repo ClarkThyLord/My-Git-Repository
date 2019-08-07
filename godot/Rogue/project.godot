@@ -58,10 +58,6 @@ player_boost={
  ]
 }
 
-[input_devices]
-
-pointing/emulate_mouse_from_touch=false
-
 [rendering]
 
 quality/driver/driver_name="GLES2"
