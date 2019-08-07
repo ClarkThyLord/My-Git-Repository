@@ -28,6 +28,7 @@ margin_left = -300.0
 margin_top = -600.0
 margin_right = 0.0
 margin_bottom = 0.0
+Boundless = false
 OriginPosition = 3
 BaseTexture = ExtResource( 4 )
 TopTexture = ExtResource( 5 )

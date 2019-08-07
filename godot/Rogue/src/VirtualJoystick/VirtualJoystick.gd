@@ -10,8 +10,8 @@ onready var Top : TextureRect = $Base/Top
 
 
 # Declarations
-var angle : float = 0
-var distance : float = 0
+var Angle : float = 0
+var Distance : float = 0
 var JoystickPosition : Vector2 = Vector2()
 
 var touch_index
@@ -47,8 +47,8 @@ func set_active(active : bool) -> void:
 	Top.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
 	Base.visible = active or Constant
 	if not active:
-		angle = 0
-		distance = 0
+		Angle = 0
+		Distance = 0
 		JoystickPosition = Vector2()
 		touch_index = null
 		if ReturnToOrigin: to_origin()
@@ -94,12 +94,12 @@ func _ready():
 
 func _input(event):
 	if Active and ((event is InputEventMouseMotion) or (event is InputEventScreenDrag and event.index == touch_index)):
-		if Boundless or Base.get_rect().has_point(event.position):
+		if Boundless or get_rect().has_point(event.position):
 			event = Base.make_input_local(event)
-			angle = (Base.get_size() / 2).angle_to_point(event.position)
+			Angle = (Base.get_size() / 2).angle_to_point(event.position)
 			var _distance = clamp((Base.get_size() / 2).distance_to(event.position), 0, Base.get_size().x / 2)
-			distance = _distance / (Base.get_size().x / 2)
-			var joystick_position = Vector2(-_distance * cos(angle), _distance * sin(angle))
+			Distance = _distance / (Base.get_size().x / 2)
+			var joystick_position = Vector2(-_distance * cos(Angle), _distance * sin(Angle))
 			JoystickPosition = joystick_position / (Base.get_size().x / 2)
 			
 			Top.set_position(Base.get_size() / 2 + Vector2(joystick_position.x, -joystick_position.y) - Top.get_size() / 2)
@@ -120,7 +120,8 @@ func _on_VirtualJoystick_input(event):
 			set_active(true)
 			accept_event()
 
-func _on_Base_mouse_exited(): if not Boundless: set_active(false)
+func _on_VirtualJoystick_mouse_exited() -> void: if not Boundless: set_active(false)
 
 
 func to_origin() -> void: if Base: Base.set_anchors_and_margins_preset(OriginPosition, Control.PRESET_MODE_KEEP_SIZE, 0)
+
