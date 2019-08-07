@@ -14,25 +14,31 @@ var angle : float = 0
 var distance : float = 0
 var JoystickPosition : Vector2 = Vector2()
 
+var touch_index
+
+
+export(bool) var Constant : bool = false setget set_constant
+func set_constant(constant : bool) -> void:
+	Constant = constant
+	if not Active and Base:
+		Base.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
+		Base.visible = true
+
+export(bool) var Boundless : bool = true
+
 
 signal activated(active)
 var Active : bool = false setget set_active
 func set_active(active : bool) -> void:
 	Active = active
 	Top.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
-	Base.visible = active
+	Base.visible = active or Constant
 	if not active:
 		angle = 0
 		distance = 0
 		JoystickPosition = Vector2()
 		touch_index = null
 	emit_signal('activated', active)
-
-
-export(bool) var Boundless : bool = true
-
-
-var touch_index
 
 
 export(int) var BaseSize : int = 160 setget set_base_size
@@ -61,11 +67,12 @@ func set_top_texture(texture : Texture) -> void:
 
 # Core
 func _ready():
+	set_constant(Constant)
 	set_base_size(BaseSize)
 	set_base_texture(BaseTexture)
 	set_top_size(TopSize)
 	set_top_texture(TopTexture)
-	Base.visible = Engine.editor_hint
+	Base.visible = Engine.editor_hint or Constant
 
 
 func _input(event):

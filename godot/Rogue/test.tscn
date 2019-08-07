@@ -7,6 +7,7 @@
 [node name="VirtualJoystick" parent="." instance=ExtResource( 1 )]
 margin_right = 328.0
 margin_bottom = 594.0
+Constant = true
 
 [node name="VirtualJoystick2" parent="." instance=ExtResource( 1 )]
 margin_left = 697.0
