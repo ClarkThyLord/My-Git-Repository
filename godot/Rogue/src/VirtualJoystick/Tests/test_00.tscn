@@ -2,16 +2,24 @@
 
 [ext_resource path="res://src/VirtualJoystick/VirtualJoystick.tscn" type="PackedScene" id=1]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="VirtualJoystick" parent="." instance=ExtResource( 1 )]
-margin_right = 328.0
-margin_bottom = 594.0
+anchor_bottom = 1.0
+margin_right = 300.0
+margin_bottom = 0.0
 Constant = true
 OriginPosition = 2
 
 [node name="VirtualJoystick2" parent="." instance=ExtResource( 1 )]
-margin_left = 697.0
-margin_right = 1032.0
-margin_bottom = 601.0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -300.0
+margin_top = -600.0
+margin_right = 0.0
+margin_bottom = 0.0
 OriginPosition = 3

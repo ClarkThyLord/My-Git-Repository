@@ -21,7 +21,6 @@ export(bool) var Constant : bool = false setget set_constant
 func set_constant(constant : bool) -> void:
 	Constant = constant
 	if not Active and Base:
-#		Base.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
 		if ReturnToOrigin: to_origin()
 		Base.visible = true
 
@@ -62,7 +61,6 @@ func set_base_size(size : int) -> void:
 	if Base:
 		Base.rect_size = Vector2(size, size)
 		if ReturnToOrigin: to_origin()
-#		Base.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
 export(Texture) var BaseTexture : Texture setget set_base_texture
 func set_base_texture(texture : Texture) -> void:
 	BaseTexture = texture
