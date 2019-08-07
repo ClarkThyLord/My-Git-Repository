@@ -9,9 +9,6 @@ margin_right = 160.0
 margin_bottom = 160.0
 mouse_filter = 1
 script = ExtResource( 1 )
-OriginPosition = 4
-BaseTexture = ExtResource( 2 )
-TopTexture = ExtResource( 3 )
 
 [node name="Base" type="TextureRect" parent="."]
 anchor_left = 0.5
