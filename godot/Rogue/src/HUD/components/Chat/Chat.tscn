@@ -7,7 +7,7 @@ script/source = "extends Panel
 
 # References
 onready var Output : RichTextLabel = $VBoxContainer/ScrollContainer/Output
-onready var Input : LineEdit = $VBoxContainer/HBoxContainer/Input
+onready var _Input : LineEdit = $VBoxContainer/HBoxContainer/Input
 onready var Enter : Button = $VBoxContainer/HBoxContainer/Enter
 onready var Hide : Button = $VBoxContainer/HBoxContainer/Hide
 
@@ -16,13 +16,16 @@ onready var Hide : Button = $VBoxContainer/HBoxContainer/Hide
 # Core
 func add_msg(msg : String) -> void: if msg.length() > 0: Output.bbcode_text += '\\n' + msg
 
+
+func _on_Chat_visibility_changed(): _Input.grab_focus()
+
 func _on_Input_entered(new_text) -> void:
 	add_msg(new_text)
-	Input.clear()
+	_Input.clear()
 
 func _on_Enter_pressed() -> void:
-	add_msg(Input.text)
-	Input.clear()
+	add_msg(_Input.text)
+	_Input.clear()
 
 func _on_Hide_pressed() -> void: set_visible(false)
 "
@@ -90,6 +93,7 @@ margin_left = 968.0
 margin_right = 1010.0
 margin_bottom = 24.0
 text = "Hide"
+[connection signal="visibility_changed" from="." to="." method="_on_Chat_visibility_changed"]
 [connection signal="text_entered" from="VBoxContainer/HBoxContainer/Input" to="." method="_on_Input_entered"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Enter" to="." method="_on_Enter_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Hide" to="." method="_on_Hide_pressed"]
