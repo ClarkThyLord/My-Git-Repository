@@ -21,10 +21,24 @@ export(bool) var Constant : bool = false setget set_constant
 func set_constant(constant : bool) -> void:
 	Constant = constant
 	if not Active and Base:
-		Base.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
+#		Base.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
+		if ReturnToOrigin: to_origin()
 		Base.visible = true
 
 export(bool) var Boundless : bool = true
+
+
+enum OriginPositions {
+	TopLeft = Control.PRESET_TOP_LEFT,       TopCenter = Control.PRESET_CENTER_TOP,       TopRight = Control.PRESET_TOP_RIGHT, 
+	LeftCenter = Control.PRESET_CENTER_LEFT, Center = Control.PRESET_CENTER,              RightCenter = Control.PRESET_CENTER_RIGHT, 
+	BottomLeft = Control.PRESET_BOTTOM_LEFT, BottomCenter = Control.PRESET_CENTER_BOTTOM, BottomRight = Control.PRESET_BOTTOM_RIGHT
+}
+export(OriginPositions) var OriginPosition = OriginPositions.Center setget set_origin_position
+func set_origin_position(origin_position) -> void:
+	OriginPosition = origin_position
+	if not Active: to_origin()
+
+export(bool) var ReturnToOrigin : bool = true
 
 
 signal activated(active)
@@ -38,6 +52,7 @@ func set_active(active : bool) -> void:
 		distance = 0
 		JoystickPosition = Vector2()
 		touch_index = null
+		if ReturnToOrigin: to_origin()
 	emit_signal('activated', active)
 
 
@@ -46,7 +61,8 @@ func set_base_size(size : int) -> void:
 	BaseSize = size
 	if Base:
 		Base.rect_size = Vector2(size, size)
-		Base.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
+		if ReturnToOrigin: to_origin()
+#		Base.set_anchors_and_margins_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 0)
 export(Texture) var BaseTexture : Texture setget set_base_texture
 func set_base_texture(texture : Texture) -> void:
 	BaseTexture = texture
@@ -67,11 +83,14 @@ func set_top_texture(texture : Texture) -> void:
 
 # Core
 func _ready():
-	set_constant(Constant)
 	set_base_size(BaseSize)
 	set_base_texture(BaseTexture)
 	set_top_size(TopSize)
 	set_top_texture(TopTexture)
+	
+	set_constant(Constant)
+	set_origin_position(OriginPosition)
+	
 	Base.visible = Engine.editor_hint or Constant
 
 
@@ -103,5 +122,7 @@ func _on_VirtualJoystick_input(event):
 			set_active(true)
 			accept_event()
 
-func _on_Base_mouse_exited():
-	if not Boundless: set_active(false)
+func _on_Base_mouse_exited(): if not Boundless: set_active(false)
+
+
+func to_origin() -> void: if Base: Base.set_anchors_and_margins_preset(OriginPosition, Control.PRESET_MODE_KEEP_SIZE, 0)

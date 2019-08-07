@@ -8,8 +8,10 @@
 margin_right = 328.0
 margin_bottom = 594.0
 Constant = true
+OriginPosition = 2
 
 [node name="VirtualJoystick2" parent="." instance=ExtResource( 1 )]
 margin_left = 697.0
 margin_right = 1032.0
 margin_bottom = 601.0
+OriginPosition = 3
