@@ -79,6 +79,7 @@ func _input(event):
 			JoystickPosition = joystick_position / (Base.get_size().x / 2)
 			
 			Top.set_position(Base.get_size() / 2 + Vector2(joystick_position.x, -joystick_position.y) - Top.get_size() / 2)
+			get_tree().set_input_as_handled()
 		else: set_active(false)
 	elif Active and ((event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.pressed) or (event is InputEventScreenTouch and event.index == touch_index and not event.pressed)): set_active(false)
 
@@ -89,9 +90,11 @@ func _on_VirtualJoystick_input(event):
 			touch_index = event.index
 			Base.set_position(event.position - Base.get_size() / 2)
 			set_active(true)
+			accept_event()
 		elif event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
 			Base.set_position(event.position - Base.get_size() / 2)
 			set_active(true)
+			accept_event()
 
 func _on_Base_mouse_exited():
 	if not Boundless: set_active(false)
