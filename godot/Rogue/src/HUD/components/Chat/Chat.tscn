@@ -13,11 +13,22 @@ onready var Hide : Button = $VBoxContainer/HBoxContainer/Hide
 
 
 
+# Declarations
+var past_mouse_mode = null
+
+
 # Core
 func add_msg(msg : String) -> void: if msg.length() > 0: Output.bbcode_text += '\\n' + msg
 
 
-func _on_Chat_visibility_changed(): _Input.grab_focus()
+func _on_Chat_visibility_changed():
+	if visible:
+		_Input.grab_focus()
+		past_mouse_mode = Input.get_mouse_mode()
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	elif past_mouse_mode != null:
+		Input.set_mouse_mode(past_mouse_mode)
+		past_mouse_mode = null
 
 func _on_Input_entered(new_text) -> void:
 	add_msg(new_text)

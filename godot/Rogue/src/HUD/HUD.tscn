@@ -11,16 +11,22 @@ script/source = "extends Control
 
 
 # References
-onready var Chat : Control = $Base/Chat
+onready var Base : Control = $Base
+onready var Chat := $Base/Chat
 onready var ChatToggle : Button = $Base/ChatToggle
 
+onready var VirtualControls : Control = $VirtualControls
+onready var VJSLeft := $VirtualControls/VirtualJoystickL
+onready var VJSRight := $VirtualControls/VirtualJoystickR
 
 
 # Core
+func _ready(): VirtualControls.visible = OS.has_touchscreen_ui_hint()
+
 func _input(event): if Input.is_action_just_released('chat_open') and not get_node('/root/HUD').is_chatting(): toggle_chat()
 
 func is_chatting() -> bool: return Chat.visible
-func toggle_chat() -> void: open_chat() if not Chat.visible else close_chat()
+func toggle_chat() -> void: open_chat() if not is_chatting() else close_chat()
 func open_chat() -> void: Chat.visible = true
 func close_chat() -> void: Chat.visible = false
 
@@ -36,6 +42,7 @@ mouse_filter = 2
 script = SubResource( 1 )
 
 [node name="VirtualControls" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
