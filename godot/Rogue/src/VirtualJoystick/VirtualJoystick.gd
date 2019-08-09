@@ -114,11 +114,11 @@ func _on_VirtualJoystick_input(event):
 			touch_index = event.index
 			Base.set_position(event.position - Base.get_size() / 2)
 			set_active(true)
-			accept_event()
+#			accept_event()
 		elif event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
 			Base.set_position(event.position - Base.get_size() / 2)
 			set_active(true)
-			accept_event()
+#			accept_event()
 
 func _on_VirtualJoystick_mouse_exited() -> void: if not Boundless: set_active(false)
 

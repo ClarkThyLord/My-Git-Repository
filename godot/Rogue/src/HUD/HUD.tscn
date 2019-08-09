@@ -21,7 +21,7 @@ onready var VJSRight := $VirtualControls/VirtualJoystickR
 
 
 # Core
-func _ready(): VirtualControls.visible = OS.has_touchscreen_ui_hint()
+func _ready(): VirtualControls.visible = OS.has_touchscreen_ui_hint() or true
 
 func _input(event): if Input.is_action_just_released('chat_open') and not get_node('/root/HUD').is_chatting(): toggle_chat()
 
@@ -45,7 +45,7 @@ script = SubResource( 1 )
 editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="VirtualJoystickL" parent="VirtualControls" instance=ExtResource( 1 )]
 anchor_top = 1.0
