@@ -70,7 +70,6 @@ BaseTexture = ExtResource( 2 )
 TopTexture = ExtResource( 3 )
 
 [node name="Base" type="Control" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

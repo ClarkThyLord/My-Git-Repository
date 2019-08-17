@@ -93,7 +93,7 @@ func _ready():
 
 
 func _input(event):
-	if Active and ((event is InputEventMouseMotion) or (event is InputEventScreenDrag and event.index == touch_index)):
+	if Active and ((event is InputEventScreenDrag and event.index == touch_index) or (touch_index == null and event is InputEventMouseMotion)):
 		if Boundless or get_rect().has_point(event.position):
 			event = Base.make_input_local(event)
 			Angle = (Base.get_size() / 2).angle_to_point(event.position)
@@ -105,7 +105,7 @@ func _input(event):
 			Top.set_position(Base.get_size() / 2 + Vector2(joystick_position.x, -joystick_position.y) - Top.get_size() / 2)
 			get_tree().set_input_as_handled()
 		else: set_active(false)
-	elif Active and ((event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.pressed) or (event is InputEventScreenTouch and event.index == touch_index and not event.pressed)): set_active(false)
+	elif Active and ((event is InputEventScreenTouch and event.index == touch_index and not event.pressed) or (touch_index == null and event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.pressed)): set_active(false)
 
 
 func _on_VirtualJoystick_input(event):
@@ -114,14 +114,11 @@ func _on_VirtualJoystick_input(event):
 			touch_index = event.index
 			Base.set_position(event.position - Base.get_size() / 2)
 			set_active(true)
-#			accept_event()
 		elif event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
 			Base.set_position(event.position - Base.get_size() / 2)
 			set_active(true)
-#			accept_event()
 
 func _on_VirtualJoystick_mouse_exited() -> void: if not Boundless: set_active(false)
 
 
 func to_origin() -> void: if Base: Base.set_anchors_and_margins_preset(OriginPosition, Control.PRESET_MODE_KEEP_SIZE, 0)
-
