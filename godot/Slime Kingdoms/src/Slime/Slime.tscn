@@ -1,88 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/slime spritesheet calciumtrice.png" type="Texture" id=1]
+[ext_resource path="res://src/Slime/Slime.gd" type="Script" id=1]
+[ext_resource path="res://assets/slime spritesheet calciumtrice.png" type="Texture" id=2]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends KinematicBody2D
-
-
-
-# Declarations
-export(bool) var Selected : bool = false setget set_selected
-func set_selected(selected : bool) -> void:
-	Selected = selected
-	if Selected: $Sprite.scale = Vector2(1.30, 1.30)
-	else: $Sprite.scale = Vector2(1, 1)
-
-export(String) var Name = ''
-export(int) var Health : int = 25 
-
-export(int) var Defense : int = 3
-
-export(int) var Speed : int = 15
-export(float) var SpeedBoost : float = 2.0
-
-export(int) var Attack : int = 3
-enum AttackMode { SingleAttack, AreaAttack }
-export(AttackMode) var SlimeAttackMode = AttackMode.SingleAttack
-
-export(Color) var SlimeColor : Color = Color(1, 1, 1) setget set_slime_color
-func set_slime_color(color : Color):
-	modulate = color
-	SlimeColor = color
-
-
-
-# Core
-func _process(delta):
-	if Selected:
-		var movement = Vector2()
-		if Input.is_action_pressed('move_up'): movement.y = -1
-		if Input.is_action_pressed('move_right'): movement.x = 1
-		if Input.is_action_pressed('move_down'): movement.y = 1
-		if Input.is_action_pressed('move_left'): movement.x = -1
-		
-		if movement.x < 0:
-			$AttackRange.cast_to.x = -17
-			$Sprite.flip_h = false
-		elif movement.x > 0:
-			$Sprite.flip_h = true
-			$AttackRange.cast_to.x = 17
-		
-		if Input.is_action_pressed('move_boost') and not Input.is_action_pressed('attack'):
-			movement *= SpeedBoost
-		
-		if Input.is_action_pressed('attack'):
-			if not $AnimationPlayer.current_animation == 'attacking': $AnimationPlayer.play('attacking')
-		elif Input.is_action_pressed('move_boost'): $AnimationPlayer.play('jumping')
-		elif movement.length() != 0: $AnimationPlayer.play('moving')
-		else: $AnimationPlayer.play('idle')
-		
-		translate((movement * Speed) * delta)
-
-func attack() -> void:
-#	print('attacked')
-	var attack_damage = randi() % (Attack + 1)
-	if SlimeAttackMode == AttackMode.SingleAttack:
-		print('single attack : ' + str(attack_damage))
-	elif SlimeAttackMode == AttackMode.AreaAttack:
-		print('area attack : ' + str(attack_damage))
-
-func _on_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.pressed:
-		print('selected')
-		set_selected(!Selected)
-
-func _on_mouse_entered():
-#	print('hover')
-	$Sprite.scale = Vector2(1.30, 1.30)
-
-func _on_mouse_exited():
-#	print('unhover')
-	if not Selected: $Sprite.scale = Vector2(1, 1)
-"
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "attacking"
 loop = true
 tracks/0/type = "value"
@@ -112,7 +33,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "dying"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -127,7 +48,7 @@ tracks/0/keys = {
 "values": [ 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "idle"
 loop = true
 tracks/0/type = "value"
@@ -143,7 +64,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "jumping"
 loop = true
 tracks/0/type = "value"
@@ -159,7 +80,7 @@ tracks/0/keys = {
 "values": [ 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "moving"
 loop = true
 tracks/0/type = "value"
@@ -175,26 +96,26 @@ tracks/0/keys = {
 "values": [ 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ]
 }
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=6]
 radius = 7.0
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=7]
 radius = 17.0
 
 [node name="Slime" type="KinematicBody2D"]
-script = SubResource( 1 )
+script = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/attacking = SubResource( 2 )
-anims/dying = SubResource( 3 )
-anims/idle = SubResource( 4 )
-anims/jumping = SubResource( 5 )
-anims/moving = SubResource( 6 )
+anims/attacking = SubResource( 1 )
+anims/dying = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/jumping = SubResource( 4 )
+anims/moving = SubResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -0.107315, 9.12214 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 offset = Vector2( 0.107315, -9.12214 )
 vframes = 20
 hframes = 10
@@ -205,7 +126,7 @@ editor/display_folded = true
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="Body"]
 position = Vector2( 0, 9 )
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 
 [node name="AttackRange" type="RayCast2D" parent="."]
 position = Vector2( 0, 9 )
@@ -213,7 +134,7 @@ cast_to = Vector2( -17, 0 )
 
 [node name="AttackArea" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 9 )
-shape = SubResource( 8 )
+shape = SubResource( 7 )
 [connection signal="input_event" from="Body" to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="Body" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Body" to="." method="_on_mouse_exited"]
