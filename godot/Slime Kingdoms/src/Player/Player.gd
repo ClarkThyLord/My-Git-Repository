@@ -29,6 +29,8 @@ func _process(delta):
 			movement *= SpeedBoost
 		
 		translate((movement * Speed) * delta)
+	elif current and selected.size() == 1:
+		set_position(selected[0].position)
 	elif current and selected.size() > 1:
 		var x1 = selected[0].position.x
 		var x2 = selected[0].position.x
@@ -39,4 +41,4 @@ func _process(delta):
 			if node.position.x > x1: x2 = node.position.x
 			if node.position.y < y1: y1 = node.position.y
 			if node.position.y > y2: y2 = node.position.y
-		set_position(Vector2(x2 - x1, y2 - y1))
+		set_position(Vector2((x2 + x1) / 2, (y2 + y1) / 2))

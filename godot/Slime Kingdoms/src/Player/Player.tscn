@@ -2,7 +2,9 @@
 
 [ext_resource path="res://src/Player/Player.gd" type="Script" id=1]
 
-[node name="Player" type="Camera2D"]
+[node name="Player" type="Camera2D" groups=[
+"players",
+]]
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false
 script = ExtResource( 1 )

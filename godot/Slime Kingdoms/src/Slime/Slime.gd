@@ -7,13 +7,11 @@ export(bool) var Selected : bool = false setget set_selected
 func set_selected(selected : bool) -> void:
 	Selected = selected
 	if Selected:
-		$Sprite.scale = Vector2(1.30, 1.30)
-#		This doesn't return the current Camera2D >_>
-#		if get_viewport().get_camera(): get_viewport().get_camera().add_selected(self)
+		$Sprite.scale = Vector2(1.15, 1.15)
+		if get_node('/root/Core').player: get_node('/root/Core').player.add_selected(self)
 	else:
 		$Sprite.scale = Vector2(1, 1)
-#		This doesn't return the current Camera2D >_>
-#		if get_viewport().get_camera(): get_viewport().get_camera().remove_selected(self)
+		if get_node('/root/Core').player: get_node('/root/Core').player.remove_selected(self)
 
 export(String) var Name = ''
 export(int) var Health : int = 25 
@@ -61,14 +59,6 @@ func _process(delta):
 		
 		translate((movement * Speed) * delta)
 
-func attack() -> void:
-#	print('attacked')
-	var attack_damage = randi() % (Attack + 1)
-	if SlimeAttackMode == AttackMode.SingleAttack:
-		print('single attack : ' + str(attack_damage))
-	elif SlimeAttackMode == AttackMode.AreaAttack:
-		print('area attack : ' + str(attack_damage))
-
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		print('selected')
@@ -76,8 +66,20 @@ func _on_input_event(viewport, event, shape_idx):
 
 func _on_mouse_entered():
 #	print('hover')
-	$Sprite.scale = Vector2(1.30, 1.30)
+	$Sprite.scale = Vector2(1.15, 1.15)
 
 func _on_mouse_exited():
 #	print('unhover')
 	if not Selected: $Sprite.scale = Vector2(1, 1)
+
+
+func eat(wealth : int, color : Color) -> void:
+	print('eat : ' + str(wealth) + ' - ' + str(color))
+
+func attack() -> void:
+#	print('attacked')
+	var attack_damage = randi() % (Attack + 1)
+	if SlimeAttackMode == AttackMode.SingleAttack:
+		print('single attack : ' + str(attack_damage))
+	elif SlimeAttackMode == AttackMode.AreaAttack:
+		print('area attack : ' + str(attack_damage))
