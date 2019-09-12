@@ -61,3 +61,10 @@ func _process(delta):
 			if node.position.y < y1: y1 = node.position.y
 			if node.position.y > y2: y2 = node.position.y
 		set_position(Vector2((x2 + x1) / 2, (y2 + y1) / 2))
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_WHEEL_UP and zoom.x > 0.1 and zoom.y > 0.1:
+			zoom -= Vector2(0.1, 0.1)
+		if event.button_index == BUTTON_WHEEL_DOWN:
+			zoom += Vector2(0.1, 0.1)
