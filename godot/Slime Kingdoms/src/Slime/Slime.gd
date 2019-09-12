@@ -3,6 +3,8 @@ extends KinematicBody2D
 
 
 # Declarations
+signal died(_self)
+
 export(bool) var Selected : bool = false setget set_selected
 func set_selected(selected : bool) -> void:
 	Selected = selected
@@ -21,7 +23,10 @@ export(float, 0, 10, 0.01) var GrowthBoost : float = 0.25
 export(float, 0, 1, 0.01) var Hunger : float = 1
 
 export(int) var Health : int = 25
-export(int) var MaxHealth : int = 25
+export(int) var MaxHealth : int = 25 setget set_max_health
+func set_max_health(max_health : int) -> void:
+	MaxHealth = max_health
+	if Health > max_health: Health = max_health
 
 export(int) var Speed : int = 25
 export(float, 1, 10, 0.1) var SpeedBoost : float = 2.0
@@ -45,7 +50,16 @@ func set_slime_stage(slimestage : int) -> void:
 
 # Core
 func _process(delta):
+	Hunger -= 0.001 * Size
+	if Hunger <= 0:
+#		print('dead')
+		emit_signal('died', self)
+		$AnimationPlayer.play('dying')
+		yield($AnimationPlayer, 'animation_finished')
+		queue_free()
+	
 	if Selected:
+		update()
 		var movement = Vector2()
 		if Input.is_action_pressed('move_up'): movement.y = -1
 		if Input.is_action_pressed('move_right'): movement.x = 1
@@ -69,9 +83,16 @@ func _process(delta):
 		else: $AnimationPlayer.play('idle')
 		
 		translate((movement * Speed) * delta)
-	Hunger -= 0.00001 * Size
-	if Hunger <= 0:
-		print('dead')
+
+func _draw():
+	if Selected:
+		# Health
+		draw_line(Vector2(-16, -8), Vector2(16, -8), Color(0, 0, 1), 3)
+		draw_line(Vector2(-16, -8), Vector2(16 * (Health / MaxHealth), -8), Color(1, 0, 0), 3)
+		
+		# Hunger
+		draw_line(Vector2(-16, -4), Vector2(16, -4), Color('013220'), 2)
+		draw_line(Vector2(-16, -4), Vector2(16 * Hunger, -4), Color(0, 1, 0), 2)
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed:
@@ -96,7 +117,7 @@ func eat(wealth : int, color : Color) -> void:
 	if self.SlimeColor.b >= 0.75 and color.b >= 0.75:
 		growth += wealth * GrowthBoost
 	Size += growth * 0.01
-	if Hunger < 1: Hunger += growth * 0.0001
+	if Hunger < 1: Hunger += growth * 0.01
 
 func attack() -> void:
 #	print('attacked')

@@ -29,9 +29,12 @@ current = true
 
 [node name="Slime" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 512, 300 )
+Health = 10
 
 [node name="Slime2" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 600.643, 349.861 )
+Health = 15
 
 [node name="Slime3" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 447.734, 356.51 )
+MaxHealth = 15

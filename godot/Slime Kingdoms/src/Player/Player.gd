@@ -11,8 +11,14 @@ export(int) var SpeedBoost : int = 2
 
 var selected : Array = []
 func set_selected(nodes : Array) -> void: selected = nodes
-func add_selected(node : Node) -> void: if not selected.has(node): selected.append(node)
-func remove_selected(node : Node) -> void: selected.erase(node)
+func add_selected(node : Node) -> void:
+	if not selected.has(node):
+		selected.append(node)
+		node.connect('died', self, 'remove_selected')
+func remove_selected(node : Node) -> void:
+	if selected.has(node):
+		selected.erase(node)
+		node.disconnect('died', self, 'remove_selected')
 
 
 
