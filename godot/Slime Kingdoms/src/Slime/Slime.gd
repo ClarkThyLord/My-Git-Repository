@@ -5,6 +5,7 @@ extends KinematicBody2D
 # Declarations
 signal died(_self)
 
+var hovered : bool = false
 export(bool) var Selected : bool = false setget set_selected
 func set_selected(selected : bool) -> void:
 	Selected = selected
@@ -12,6 +13,7 @@ func set_selected(selected : bool) -> void:
 		$Sprite.scale = Vector2(1.15, 1.15)
 		if get_node('/root/Core').player: get_node('/root/Core').player.add_selected(self)
 	else:
+		update()
 		$Sprite.scale = Vector2(1, 1)
 		if get_node('/root/Core').player: get_node('/root/Core').player.remove_selected(self)
 
@@ -22,9 +24,9 @@ export(float, 0, 10, 0.01) var GrowthBoost : float = 0.25
 
 export(float, 0, 1, 0.01) var Hunger : float = 1
 
-export(int) var Health : int = 25
-export(int) var MaxHealth : int = 25 setget set_max_health
-func set_max_health(max_health : int) -> void:
+export(float) var Health : float = 25
+export(float) var MaxHealth : float = 25 setget set_max_health
+func set_max_health(max_health : float) -> void:
 	MaxHealth = max_health
 	if Health > max_health: Health = max_health
 
@@ -51,7 +53,7 @@ func set_slime_stage(slimestage : int) -> void:
 # Core
 func _process(delta):
 	Hunger -= 0.001 * Size
-	if Hunger <= 0:
+	if Health <= 0 or Hunger <= 0:
 #		print('dead')
 		emit_signal('died', self)
 		$AnimationPlayer.play('dying')
@@ -85,14 +87,14 @@ func _process(delta):
 		translate((movement * Speed) * delta)
 
 func _draw():
-	if Selected:
+	if Selected or hovered:
 		# Health
 		draw_line(Vector2(-16, -8), Vector2(16, -8), Color(0, 0, 1), 3)
-		draw_line(Vector2(-16, -8), Vector2(16 * (Health / MaxHealth), -8), Color(1, 0, 0), 3)
+		draw_line(Vector2(-16, -8), Vector2(Health / MaxHealth * 32 - 16, -8), Color(1, 0, 0), 3)
 		
 		# Hunger
 		draw_line(Vector2(-16, -4), Vector2(16, -4), Color('013220'), 2)
-		draw_line(Vector2(-16, -4), Vector2(16 * Hunger, -4), Color(0, 1, 0), 2)
+		draw_line(Vector2(-16, -4), Vector2(Hunger * 32 - 16, -4), Color(0, 1, 0), 2)
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed:
@@ -101,10 +103,14 @@ func _on_input_event(viewport, event, shape_idx):
 
 func _on_mouse_entered():
 #	print('hover')
+	hovered = true
+	update()
 	$Sprite.scale = Vector2(1.15, 1.15)
 
 func _on_mouse_exited():
 #	print('unhover')
+	hovered = false
+	update()
 	if not Selected: $Sprite.scale = Vector2(1, 1)
 
 
