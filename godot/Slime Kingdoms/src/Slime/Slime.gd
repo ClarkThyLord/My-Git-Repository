@@ -122,7 +122,8 @@ func eat(wealth : int, color : Color) -> void:
 		growth += wealth * GrowthBoost
 	if self.SlimeColor.b >= 0.75 and color.b >= 0.75:
 		growth += wealth * GrowthBoost
-	Size += growth * 0.01
+	Size += growth * 0.001
+	if Health < MaxHealth: Health += growth * 0.01
 	if Hunger < 1: Hunger += growth * 0.01
 
 func attack() -> void:
