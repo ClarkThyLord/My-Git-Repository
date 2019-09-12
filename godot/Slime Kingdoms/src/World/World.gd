@@ -44,5 +44,4 @@ func queue_food(food) -> void:
 	if foods.has(food) and not foods_queue.has(food):
 		foods.erase(food)
 		call_deferred('remove_child', food)
-#		remove_child(food)
 		queue_food(food)

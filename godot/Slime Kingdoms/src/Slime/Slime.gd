@@ -14,21 +14,32 @@ func set_selected(selected : bool) -> void:
 		if get_node('/root/Core').player: get_node('/root/Core').player.remove_selected(self)
 
 export(String) var Name = ''
-export(int) var Health : int = 25 
+
+export(float, 0, 10, 0.01) var Size : float = 1.0
+export(float, 0, 10, 0.01) var GrowthBoost : float = 0.25
+
+export(float, 0, 1, 0.01) var Hunger : float = 1
+
+export(int) var Health : int = 25
+export(int) var MaxHealth : int = 25
+
+export(int) var Speed : int = 25
+export(float, 1, 10, 0.1) var SpeedBoost : float = 2.0
 
 export(int) var Defense : int = 3
 
-export(int) var Speed : int = 15
-export(float) var SpeedBoost : float = 2.0
-
 export(int) var Attack : int = 3
-enum AttackMode { SingleAttack, AreaAttack }
-export(AttackMode) var SlimeAttackMode = AttackMode.SingleAttack
+enum AttackModes { SingleAttack, AreaAttack, RangeAttack }
+export(AttackModes) var AttackMode = AttackModes.SingleAttack
 
-export(Color) var SlimeColor : Color = Color(1, 1, 1) setget set_slime_color
-func set_slime_color(color : Color):
-	modulate = color
-	SlimeColor = color
+export(Color) var SlimeColor : Color = Color(1, 1, 1) setget set_slime_color, get_slime_color
+func get_slime_color() -> Color: return modulate
+func set_slime_color(color : Color) -> void: modulate = color
+
+enum SlimeStages { Egg, Slimy, Slimer, Slimiest }
+export(SlimeStages) var SlimeStage : int = SlimeStages.Egg setget set_slime_stage
+func set_slime_stage(slimestage : int) -> void:
+	slimestage = slimestage
 
 
 
@@ -58,6 +69,9 @@ func _process(delta):
 		else: $AnimationPlayer.play('idle')
 		
 		translate((movement * Speed) * delta)
+	Hunger -= 0.00001 * Size
+	if Hunger <= 0:
+		print('dead')
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed:
@@ -74,12 +88,23 @@ func _on_mouse_exited():
 
 
 func eat(wealth : int, color : Color) -> void:
-	print('eat : ' + str(wealth) + ' - ' + str(color))
+	var growth = wealth
+	if self.SlimeColor.r >= 0.75 and color.r >= 0.75:
+		growth += wealth * GrowthBoost
+	if self.SlimeColor.g >= 0.75 and color.g >= 0.75:
+		growth += wealth * GrowthBoost
+	if self.SlimeColor.b >= 0.75 and color.b >= 0.75:
+		growth += wealth * GrowthBoost
+	Size += growth * 0.01
+	if Hunger < 1: Hunger += growth * 0.0001
 
 func attack() -> void:
 #	print('attacked')
 	var attack_damage = randi() % (Attack + 1)
-	if SlimeAttackMode == AttackMode.SingleAttack:
-		print('single attack : ' + str(attack_damage))
-	elif SlimeAttackMode == AttackMode.AreaAttack:
-		print('area attack : ' + str(attack_damage))
+	match AttackMode:
+		AttackModes.SingleAttack:
+			print('single attack : ' + str(attack_damage))
+		AttackModes.AreaAttack:
+			print('area attack   : ' + str(attack_damage))
+		AttackModes.RangeAttack:
+			print('range attack  : ' + str(attack_damage))
