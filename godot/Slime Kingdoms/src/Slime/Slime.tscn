@@ -123,8 +123,11 @@ vframes = 5
 hframes = 10
 frame = 49
 
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 9 )
+shape = SubResource( 6 )
+
 [node name="Body" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="Body"]
 position = Vector2( 0, 9 )
@@ -137,6 +140,7 @@ cast_to = Vector2( -17, 0 )
 [node name="AttackArea" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 9 )
 shape = SubResource( 7 )
+disabled = true
 [connection signal="input_event" from="Body" to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="Body" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Body" to="." method="_on_mouse_exited"]

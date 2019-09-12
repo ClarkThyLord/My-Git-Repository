@@ -48,13 +48,13 @@ func _process(delta):
 		var y1 = selected[0].position.y
 		var y2 = selected[0].position.y
 		for node in selected:
-			if node is Slime and position.distance_to(node.position) > 25:
+			if node is Slime and position.distance_to(node.position) > 32 + 4 * selected.size():
 				var movement = Vector2()
 				if position.x > node.position.x: movement.x = 1
 				if position.x < node.position.x: movement.x = -1
 				if position.y > node.position.y: movement.y = 1
 				if position.y < node.position.y: movement.y = -1
-				node.translate((movement * node.Speed) * delta)
+				node.move_and_collide((movement * node.Speed) * delta)
 			
 			if node.position.x < x1: x1 = node.position.x
 			if node.position.x > x1: x2 = node.position.x

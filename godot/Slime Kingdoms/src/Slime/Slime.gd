@@ -84,7 +84,7 @@ func _process(delta):
 		elif movement.length() != 0: $AnimationPlayer.play('moving')
 		else: $AnimationPlayer.play('idle')
 		
-		translate((movement * Speed) * delta)
+		move_and_collide((movement * Speed) * delta)
 
 func _draw():
 	if Selected or hovered:
