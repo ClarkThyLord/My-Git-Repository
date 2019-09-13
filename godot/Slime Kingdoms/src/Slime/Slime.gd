@@ -5,18 +5,6 @@ extends KinematicBody2D
 # Declarations
 signal died(_self)
 
-var hovered : bool = false
-export(bool) var Selected : bool = false setget set_selected
-func set_selected(selected : bool) -> void:
-	Selected = selected
-	if Selected:
-		$Sprite.scale = Vector2(1.15, 1.15)
-		if get_node('/root/Core').player: get_node('/root/Core').player.add_selected(self)
-	else:
-		update()
-		$Sprite.scale = Vector2(1, 1)
-		if get_node('/root/Core').player: get_node('/root/Core').player.remove_selected(self)
-
 export(String) var Name = ''
 
 export(float, 0, 10, 0.01) var Size : float = 1.0
@@ -48,21 +36,44 @@ export(SlimeStages) var SlimeStage : int = SlimeStages.Egg setget set_slime_stag
 func set_slime_stage(slimestage : int) -> void:
 	slimestage = slimestage
 
+var target_position
+
+var hovered : bool = false
+export(bool) var Selected : bool = false setget set_selected
+func set_selected(selected : bool) -> void:
+	Selected = selected
+	if Selected:
+		$Sprite.scale = Vector2(1.15, 1.15)
+		if get_node('/root/Core').player: get_node('/root/Core').player.add_selected(self)
+	else:
+		update()
+		$Sprite.scale = Vector2(1, 1)
+		if get_node('/root/Core').player: get_node('/root/Core').player.remove_selected(self)
+
 
 
 # Core
 func _process(delta):
 	Hunger -= 0.001 * Size
 	if Health <= 0 or Hunger <= 0:
-#		print('dead')
 		emit_signal('died', self)
 		$AnimationPlayer.play('dying')
 		yield($AnimationPlayer, 'animation_finished')
 		queue_free()
 	
+	var movement = Vector2()
+	
+	if typeof(target_position) == TYPE_VECTOR2:
+		if target_position.distance_to(position) < 16:
+			target_position = null
+		else:
+			if target_position.x > position.x: movement.x = 1
+			if target_position.x < position.x: movement.x = -1
+			if target_position.y > position.y: movement.y = 1
+			if target_position.y < position.y: movement.y = -1
+	
 	if Selected:
 		update()
-		var movement = Vector2()
 		if Input.is_action_pressed('move_up'): movement.y = -1
 		if Input.is_action_pressed('move_right'): movement.x = 1
 		if Input.is_action_pressed('move_down'): movement.y = 1
@@ -84,7 +95,9 @@ func _process(delta):
 		elif movement.length() != 0: $AnimationPlayer.play('moving')
 		else: $AnimationPlayer.play('idle')
 		
-		move_and_collide((movement * Speed) * delta)
+		movement = (movement * Speed) * delta
+		if test_move(transform, movement): target_position = null
+		else: move_and_collide(movement)
 
 func _draw():
 	if Selected or hovered:
