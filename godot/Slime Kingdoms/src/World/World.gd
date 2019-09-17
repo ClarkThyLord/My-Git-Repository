@@ -22,7 +22,7 @@ func _process(delta):
 	if foods.size() < FoodMaximum:
 		var food := Food.instance()
 		
-		food.position = Vector2(randi() % 400, randi() % 400)
+		food.position = Vector2(200 + randi() % 400, 200 + randi() % 400)
 		food.Wealth = (randi() % FoodWealth) + 1
 		food.FoodColor = Color(randf(), randf(), randf())
 		
@@ -33,7 +33,7 @@ func _process(delta):
 	elif foods_queue.size() > 0:
 		var food = foods[0]
 		
-		food.position = Vector2(randi() % 400, randi() % 400)
+		food.position = Vector2(200 + randi() % 400, 200 + randi() % 400)
 		food.Wealth = (randi() % FoodWealth) + 1
 		food.FoodColor = Color(randf(), randf(), randf())
 		
