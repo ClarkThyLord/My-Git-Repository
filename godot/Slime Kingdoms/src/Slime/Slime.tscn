@@ -134,7 +134,9 @@ shape = SubResource( 6 )
 
 [node name="AttackRange" type="RayCast2D" parent="."]
 position = Vector2( 0, 9 )
+enabled = true
 cast_to = Vector2( -17, 0 )
+collide_with_areas = true
 
 [node name="AttackArea" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 9 )

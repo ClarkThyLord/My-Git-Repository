@@ -7,7 +7,7 @@ signal died(_self)
 
 export(String) var Name = ''
 
-export(float, 0, 10, 0.01) var Size : float = 1.0
+export(float, 0, 100, 0.01) var Size : float = 10.0
 export(float, 0, 10, 0.01) var GrowthBoost : float = 0.25
 
 export(float, 0, 1, 0.01) var Hunger : float = 1
@@ -27,8 +27,7 @@ export(int) var Attack : int = 3
 enum AttackModes { SingleAttack, AreaAttack, RangeAttack }
 export(AttackModes) var AttackMode = AttackModes.SingleAttack
 
-export(Color) var SlimeColor : Color = Color(1, 1, 1) setget set_slime_color, get_slime_color
-func get_slime_color() -> Color: return modulate
+export(Color) var SlimeColor : Color = Color(1, 1, 1) setget set_slime_color
 func set_slime_color(color : Color) -> void: modulate = color
 
 enum SlimeStages { Egg, Slimy, Slimer, Slimiest }
@@ -54,13 +53,19 @@ func set_selected(selected : bool) -> void:
 
 # Core
 func _process(delta):
-	Hunger -= 0.001 * Size
+	# Stats update
+	Hunger -= Size / 10000
 	if Health <= 0 or Hunger <= 0:
 		emit_signal('died', self)
 		$AnimationPlayer.play('dying')
 		yield($AnimationPlayer, 'animation_finished')
 		queue_free()
+	scale = Vector2.ONE * (Size / 10)
 	
+	# Stats visuals update
+	update()
+	
+	# Movement handeling
 	var movement = Vector2()
 	
 	if typeof(target_position) == TYPE_VECTOR2:
@@ -73,7 +78,6 @@ func _process(delta):
 			if target_position.y < position.y: movement.y = -1
 	
 	if Selected:
-		update()
 		if Input.is_action_pressed('move_up'): movement.y = -1
 		if Input.is_action_pressed('move_right'): movement.x = 1
 		if Input.is_action_pressed('move_down'): movement.y = 1
@@ -139,12 +143,17 @@ func eat(wealth : int, color : Color) -> void:
 	if Health < MaxHealth: Health += growth * 0.01
 	if Hunger < 1: Hunger += growth * 0.01
 
+func handle_damage(damage : int) -> void:
+	Health -= damage
+
 func attack() -> void:
 #	print('attacked')
 	var attack_damage = randi() % (Attack + 1)
 	match AttackMode:
 		AttackModes.SingleAttack:
-			print('single attack : ' + str(attack_damage))
+#			print('single attack : ' + str(attack_damage))
+			if $AttackRange.is_colliding() and $AttackRange.get_collider().is_in_group('slimes'):
+				$AttackRange.get_collider().handle_damage(attack_damage)
 		AttackModes.AreaAttack:
 			print('area attack   : ' + str(attack_damage))
 		AttackModes.RangeAttack:
