@@ -9,6 +9,9 @@ export(String) var Name : String = ''
 export(int) var Speed : int = 200
 export(int) var SpeedBoost : int = 2
 
+export(String) var KingdomName : String = ''
+export(Color) var KingdomColor : Color = Color(0, 0, 0)
+
 var selected : Array = []
 func set_selected(nodes : Array) -> void: selected = nodes
 func add_selected(node : Node) -> void:

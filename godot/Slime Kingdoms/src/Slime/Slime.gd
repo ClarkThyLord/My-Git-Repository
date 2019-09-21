@@ -2,10 +2,18 @@ extends KinematicBody2D
 
 
 
+# Refrences
+var font : DynamicFont = preload('res://assets/Fipps-Regular.tres')
+
+
+
 # Declarations
 signal died(_self)
 
 export(String) var Name = ''
+
+export(String) var KingdomName : String = ''
+export(Color) var KingdomColor : Color = Color(0, 0, 0)
 
 export(float, 0, 100, 0.01) var Size : float = 10.0
 export(float, 0, 10, 0.01) var GrowthBoost : float = 0.25
@@ -41,7 +49,12 @@ var hovered : bool = false
 export(bool) var Selected : bool = false setget set_selected
 func set_selected(selected : bool) -> void:
 	Selected = selected
+	
 	if Selected:
+		if SlimeStage == SlimeStages.Egg and KingdomName == '':
+			KingdomName = get_node('/root/Core').player.KingdomName
+			KingdomColor = get_node('/root/Core').player.KingdomColor
+		
 		$Sprite.scale = Vector2(1.15, 1.15)
 		if get_node('/root/Core').player: get_node('/root/Core').player.add_selected(self)
 	else:
@@ -52,6 +65,8 @@ func set_selected(selected : bool) -> void:
 
 
 # Core
+func _ready(): font.size = 8
+
 func _process(delta):
 	# Stats update
 	Hunger -= Size / 10000
@@ -105,6 +120,10 @@ func _process(delta):
 
 func _draw():
 	if Selected or hovered:
+		# Kingom Name
+		if not Selected and not KingdomName.empty():
+			draw_string(font, Vector2(0, -10) - (font.get_string_size(KingdomName) / 2), KingdomName, KingdomColor)
+		
 		# Health
 		draw_line(Vector2(-16, -8), Vector2(16, -8), Color(0, 0, 1), 3)
 		draw_line(Vector2(-16, -8), Vector2(Health / MaxHealth * 32 - 16, -8), Color(1, 0, 0), 3)

@@ -26,6 +26,8 @@ FoodMaximum = 1000
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 512, 300 )
 current = true
+KingdomName = "Testing Kindom"
+KingdomColor = Color( 0.654902, 0.168627, 0.168627, 1 )
 
 [node name="Slime" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 512, 300 )
