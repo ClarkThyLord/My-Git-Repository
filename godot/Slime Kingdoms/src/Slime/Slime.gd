@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 
 # Refrences
-var font : DynamicFont = preload('res://assets/Fipps-Regular.tres')
+var font : DynamicFont = preload('res://assets/font.tres')
 
 
 

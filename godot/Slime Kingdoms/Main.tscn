@@ -22,6 +22,7 @@ script = SubResource( 1 )
 
 [node name="World" parent="." instance=ExtResource( 1 )]
 FoodMaximum = 1000
+LandsArea = Vector2( 128, 75 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 512, 300 )
