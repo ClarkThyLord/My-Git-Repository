@@ -18,7 +18,8 @@ export(int) var FoodMaximum : int = 100
 
 export(Vector2) var LandsArea : Vector2 = Vector2(32, 22) setget set_lands_area
 func set_lands_area(lands_area : Vector2) -> void:
-	$TileMap.clear()
+	$Background.clear()
+	$Interactive.clear()
 	for child in get_children():
 		if child.is_in_group('foods'):
 			call_deferred('remove_child', child)
@@ -26,7 +27,9 @@ func set_lands_area(lands_area : Vector2) -> void:
 	for i in range(lands_area.x * lands_area.y):
 		var x = i % (lands_area.x as int)
 		var y = floor(i / lands_area.x)
-		$TileMap.set_cell(x, y, 0)
+		if x == 0 or x == lands_area.x - 1or y == 0 or y == lands_area.y - 1:
+			$Interactive.set_cell(x, y, 1)
+		$Background.set_cell(x, y, 0)
 	LandsArea = lands_area
 
 
