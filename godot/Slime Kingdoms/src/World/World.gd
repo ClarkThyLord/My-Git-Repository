@@ -27,9 +27,9 @@ func set_lands_area(lands_area : Vector2) -> void:
 	for i in range(lands_area.x * lands_area.y):
 		var x = i % (lands_area.x as int)
 		var y = floor(i / lands_area.x)
-		if x == 0 or x == lands_area.x - 1or y == 0 or y == lands_area.y - 1:
+		if x == 0 or x == lands_area.x - 1 or y == 0 or y == lands_area.y - 1:
 			$Interactive.set_cell(x, y, 1)
-		$Background.set_cell(x, y, 0)
+		$Background.set_cell(x, y, 0, false, false, false, Vector2(randi() % 4, 0))
 	LandsArea = lands_area
 
 

@@ -5,10 +5,13 @@ extends KinematicBody2D
 # Refrences
 var font : DynamicFont = preload('res://assets/font.tres')
 
+var Food := preload('res://src/Food/Food.tscn')
+
 
 
 # Declarations
 signal died(_self)
+var dead : bool = false
 
 export(String) var Name = ''
 
@@ -70,11 +73,12 @@ func _ready(): font.size = 8
 func _process(delta):
 	# Stats update
 	Hunger -= Size / 10000
-	if Health <= 0 or Hunger <= 0:
-		emit_signal('died', self)
-		$AnimationPlayer.play('dying')
-		yield($AnimationPlayer, 'animation_finished')
-		queue_free()
+	if dead: return update();
+	elif Health <= 0 or Hunger <= 0: return death();
+#		emit_signal('died', self)
+#		$AnimationPlayer.play('dying')
+#		yield($AnimationPlayer, 'animation_finished')
+#		queue_free()
 	scale = Vector2.ONE * (Size / 10)
 	
 	# Stats visuals update
@@ -163,7 +167,29 @@ func eat(wealth : int, color : Color) -> void:
 	if Hunger < 1: Hunger += growth * 0.01
 
 func handle_damage(damage : int) -> void:
-	Health -= damage
+	if Health > 0:
+		Health -= damage
+		$Timer.start(0.1)
+		modulate = SlimeColor.inverted()
+		yield($Timer, 'timeout')
+		modulate = SlimeColor
+
+func death() -> void:
+	dead = true
+	emit_signal('died', self)
+	$AnimationPlayer.play('dying')
+	yield($AnimationPlayer, 'animation_finished')
+	
+	$Timer.start(3)
+	var food_amount = Size / 2 * (SlimeStage + 1)
+	print('Foods: ', food_amount)
+	for i in range(food_amount):
+		var food = Food.instance()
+		food.position = Vector2(randi() % 10 - 5, randi() % 10 - 5)
+		add_child(food)
+	yield($Timer, 'timeout')
+	
+	queue_free()
 
 func attack() -> void:
 #	print('attacked')
