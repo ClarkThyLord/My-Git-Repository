@@ -46,7 +46,7 @@ func _process(delta):
 		var y1 = selected[0].position.y
 		var y2 = selected[0].position.y
 		for node in selected:
-			if node.is_in_group('slimes') and node.position.distance_to(position) > 32 + 4 * selected.size(): node.target_position = position
+			if node.is_in_group('slimes') and (Input.is_action_just_pressed('regroup') or node.position.distance_to(position) > 32 + 4 * selected.size()): node.target_position = position
 			if node.position.x < x1: x1 = node.position.x
 			if node.position.x > x1: x2 = node.position.x
 			if node.position.y < y1: y1 = node.position.y

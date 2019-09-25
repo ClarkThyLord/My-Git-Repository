@@ -137,7 +137,7 @@ func _draw():
 		draw_line(Vector2(-16, -4), Vector2(Hunger * 32 - 16, -4), Color(0, 1, 0), 2)
 
 func _on_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
 #		print('selected')
 		set_selected(!Selected)
 
@@ -185,7 +185,7 @@ func death() -> void:
 	print('Foods: ', food_amount)
 	for i in range(food_amount):
 		var food = Food.instance()
-		food.position = Vector2(randi() % 10 - 5, randi() % 10 - 5)
+		food.position = Vector2((randi() % 32) - 16, (randi() % 16) + 16)
 		add_child(food)
 	yield($Timer, 'timeout')
 	
