@@ -37,6 +37,7 @@ Health = 15.0
 [node name="Slime2" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 600.643, 349.861 )
 Health = 20.0
+AttackMode = 1
 
 [node name="Slime3" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 447.734, 356.51 )

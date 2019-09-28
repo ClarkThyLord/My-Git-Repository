@@ -103,11 +103,11 @@ func _process(delta):
 		if Input.is_action_pressed('move_left'): movement.x = -1
 		
 		if movement.x < 0:
-			$AttackRange.cast_to.x = -17
+			$AttackSingleArea.cast_to.x = -17
 			$Sprite.flip_h = false
 		elif movement.x > 0:
 			$Sprite.flip_h = true
-			$AttackRange.cast_to.x = 17
+			$AttackSingleArea.cast_to.x = 17
 		
 		if Input.is_action_pressed('move_boost') and not Input.is_action_pressed('attack'):
 			movement *= SpeedBoost
@@ -166,14 +166,6 @@ func eat(wealth : int, color : Color) -> void:
 	if Health < MaxHealth: Health += growth * 0.01
 	if Hunger < 1: Hunger += growth * 0.01
 
-func handle_damage(damage : int) -> void:
-	if Health > 0:
-		Health -= damage
-		$Timer.start(0.1)
-		modulate = SlimeColor.inverted()
-		yield($Timer, 'timeout')
-		modulate = SlimeColor
-
 func death() -> void:
 	dead = true
 	emit_signal('died', self)
@@ -191,15 +183,21 @@ func death() -> void:
 	
 	queue_free()
 
+func attacked(damage : float) -> void:
+	if Health > 0:
+		Health -= damage
+		$Timer.start(0.1)
+		modulate = SlimeColor.inverted()
+		yield($Timer, 'timeout')
+		modulate = SlimeColor
+
 func attack() -> void:
-#	print('attacked')
 	var attack_damage = randi() % (Attack + 1)
 	match AttackMode:
 		AttackModes.SingleAttack:
-#			print('single attack : ' + str(attack_damage))
-			if $AttackRange.is_colliding() and $AttackRange.get_collider().is_in_group('slimes'):
-				$AttackRange.get_collider().handle_damage(attack_damage)
+			if $AttackSingleArea.get_collider() and $AttackSingleArea.get_collider().is_in_group('slimes'):
+				$AttackSingleArea.get_collider().attacked(attack_damage)
 		AttackModes.AreaAttack:
-			print('area attack   : ' + str(attack_damage))
-		AttackModes.RangeAttack:
-			print('range attack  : ' + str(attack_damage))
+			for entity in $AttackAreaArea.get_overlapping_bodies():
+				if entity != self:
+					entity.attacked(attack_damage)

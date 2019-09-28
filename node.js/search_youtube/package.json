@@ -1,0 +1,14 @@
+{
+  "name": "search_youtube",
+  "version": "1.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "yt-search": "^0.4.1"
+  }
+}
