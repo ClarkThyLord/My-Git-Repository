@@ -23,6 +23,8 @@ func remove_selected(node : Node) -> void:
 		selected.erase(node)
 		node.disconnect('died', self, 'remove_selected')
 
+var target
+
 
 
 # Core
@@ -46,7 +48,9 @@ func _process(delta):
 		var y1 = selected[0].position.y
 		var y2 = selected[0].position.y
 		for node in selected:
-			if node.is_in_group('slimes') and (Input.is_action_just_pressed('regroup') or node.position.distance_to(position) > 32 + 4 * selected.size()): node.target_position = position
+			if node.is_in_group('slimes'):
+				if target: node.target_position = target
+				elif (Input.is_action_just_pressed('regroup') or node.position.distance_to(position) > 32 + 4 * selected.size()): node.target_position = position
 			if node.position.x < x1: x1 = node.position.x
 			if node.position.x > x1: x2 = node.position.x
 			if node.position.y < y1: y1 = node.position.y
@@ -54,8 +58,10 @@ func _process(delta):
 		set_position(Vector2((x2 + x1) / 2, (y2 + y1) / 2))
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseMotion:
+		target = event.position
+	elif event is InputEventMouseButton:
 		if event.button_index == BUTTON_WHEEL_UP and zoom.x > 0.1 and zoom.y > 0.1:
 			zoom -= Vector2(0.1, 0.1)
-		if event.button_index == BUTTON_WHEEL_DOWN:
+		elif event.button_index == BUTTON_WHEEL_DOWN:
 			zoom += Vector2(0.1, 0.1)
