@@ -41,6 +41,7 @@ func _process(delta):
 		
 		translate((movement * Speed) * delta)
 	elif current and selected.size() == 1:
+		if target: selected[0].target_position = target
 		set_position(selected[0].position)
 	elif current and selected.size() > 1:
 		var x1 = selected[0].position.x
