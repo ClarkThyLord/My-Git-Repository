@@ -29,6 +29,11 @@ var target
 
 # Core
 func _process(delta):
+	if Input.is_action_just_released('deselect'):
+		for entity in selected:
+			if entity.is_in_group('slimes'):
+				entity.Selected = false
+		selected.clear()
 	if current and selected.size() == 0:
 		var movement = Vector2()
 		if Input.is_action_pressed('move_up'): movement.y = -1
@@ -41,7 +46,7 @@ func _process(delta):
 		
 		translate((movement * Speed) * delta)
 	elif current and selected.size() == 1:
-		if target: selected[0].target_position = target
+		if target and position.distance_to(target) > 32: selected[0].target_position = target
 		set_position(selected[0].position)
 	elif current and selected.size() > 1:
 		var x1 = selected[0].position.x

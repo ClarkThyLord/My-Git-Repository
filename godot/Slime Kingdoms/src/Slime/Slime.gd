@@ -62,6 +62,8 @@ func set_selected(selected : bool) -> void:
 		if get_node('/root/Core').player: get_node('/root/Core').player.add_selected(self)
 	else:
 		update()
+		target_position = null
+		$AnimationPlayer.play('idle')
 		$Sprite.scale = Vector2(1, 1)
 		if get_node('/root/Core').player: get_node('/root/Core').player.remove_selected(self)
 
