@@ -8,17 +8,28 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Slime",
+"language": "GDScript",
+"path": "res://src/entities/slime/Slime.gd"
+} ]
 _global_script_class_icons={
-
+"Slime": "res://assets/entities/slime/king/king.png"
 }
 
 [application]
 
 config/name="Slime Kingdoms"
+run/main_scene="res://main.tscn"
 boot_splash/image="res://icon.splash.png"
 boot_splash/bg_color=Color( 0.517647, 0.784314, 0.45098, 1 )
 config/icon="res://icon.png"
+
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
 
 [gui]
 
