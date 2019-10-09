@@ -32,6 +32,7 @@ func set_slime_size(slime_size : float) -> void:
 	SlimeSize = slime_size
 	$Sprite.scale = Vector2(slime_size, slime_size)
 	($Body.shape as CircleShape2D).radius = slime_size * _default_pixel_size
+	($Range.shape as CircleShape2D).radius = slime_size * _default_pixel_size * 2.5
 
 export(Color) var SlimeColor := Color(1, 1, 1) setget set_slime_color
 func set_slime_color(slime_color : Color) -> void:
@@ -58,7 +59,13 @@ func _process(delta):
 		
 		var distance = position.distance_to(target_pos)
 		if distance < 6: Target = null
-
+		
+		# TODO Find Targets within range
+#		var query = Physics2DShapeQueryParameters.new()
+#		query.set_shape($Range.shape)
+#		query.exclude = [self]
+#		query.transform = transform
+#		var targets = get_world_2d().direct_space_state.intersect_shape(query)
 
 func _draw():
 	draw_circle(Vector2.ZERO, _default_pixel_size * SlimeSize, SlimeColor)

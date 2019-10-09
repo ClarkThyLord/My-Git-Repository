@@ -11,3 +11,9 @@ drag_margin_h_enabled = false
 drag_margin_v_enabled = false
 
 [node name="Slime" parent="." instance=ExtResource( 2 )]
+
+[node name="Slime2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 50, 50 )
+
+[node name="Slime3" parent="." instance=ExtResource( 2 )]
+position = Vector2( -50, 50 )
