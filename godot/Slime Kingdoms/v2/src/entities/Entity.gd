@@ -5,10 +5,14 @@ class_name Entity
 
 
 # Declarations
+signal owned(player)
+signal unowned
+
 signal selected(player)
 signal unselected
 
 
+var Owner : Player
 var hovered := false
 var Selector : Player
 
@@ -27,8 +31,17 @@ func _process(delta):
 func _on_mouse_entered(): hovered = true
 func _on_mouse_exited(): hovered = false
 
+func owned(owner : Player) -> void:
+	Owner = owner
+	emit_signal('owned', owner)
+
+func unowned() -> void:
+	Owner = null
+	emit_signal('unowned')
+
 func selected(player : Player) -> void:
 	Selector = player
+	if not Owner: owned(player)
 	emit_signal('selected', player)
 
 func unselected() -> void:

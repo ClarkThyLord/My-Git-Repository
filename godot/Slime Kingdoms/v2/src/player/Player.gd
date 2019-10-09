@@ -9,6 +9,8 @@ export(float, 0.01, 10.0, 0.01) var SpeedBoost := 1.50
 
 var selected := []
 
+export(Color) var PlayerColor := Color(1, 1, 1)
+
 
 
 # Core

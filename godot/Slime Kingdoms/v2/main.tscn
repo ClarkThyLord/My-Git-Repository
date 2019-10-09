@@ -9,6 +9,7 @@
 current = true
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false
+PlayerColor = Color( 0.776471, 0.2, 0.2, 1 )
 
 [node name="Slime" parent="." instance=ExtResource( 2 )]
 
