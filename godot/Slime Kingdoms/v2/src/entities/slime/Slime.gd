@@ -21,6 +21,11 @@ export(int, 0, 1000, 1) var MaxHealth := 10
 export(int, 0, 1000, 1) var Stamina  := 10
 export(int, 0, 1000, 1) var MaxStamina := 10
 
+export(int, 0, 1000, 1) var Speed := 25
+export(float, 0.01, 10.0, 0.01) var SpeedBoost := 1.75
+
+var Target
+
 
 export(float, 0.01, 10, 0.01) var SlimeSize := 1.0 setget set_slime_size
 func set_slime_size(slime_size : float) -> void:
@@ -40,6 +45,19 @@ func _ready(): update()
 
 func _process(delta):
 	update()
+	if Target:
+		var target_pos := Vector2()
+		match typeof(Target):
+			TYPE_VECTOR2:
+				target_pos = Target
+		var direction = position.direction_to(target_pos)
+		
+		if Input.is_action_pressed('move_boost'): direction *= SpeedBoost
+		
+		move_and_collide(direction * Speed * delta)
+		
+		var distance = position.distance_to(target_pos)
+		if distance < 6: Target = null
 
 
 func _draw():

@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Entity",
 "language": "GDScript",
-"path": "res://assets/entities/Entity.gd"
+"path": "res://src/entities/Entity.gd"
 }, {
 "base": "Camera2D",
 "class": "Player",

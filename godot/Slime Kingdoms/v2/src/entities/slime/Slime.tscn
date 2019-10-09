@@ -5,7 +5,9 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
-[node name="Slime" type="KinematicBody2D"]
+[node name="Slime" type="KinematicBody2D" groups=[
+"slimes",
+]]
 input_pickable = true
 script = ExtResource( 1 )
 
