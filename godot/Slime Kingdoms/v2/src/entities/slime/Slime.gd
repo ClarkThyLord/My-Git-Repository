@@ -1,6 +1,6 @@
 tool
-extends KinematicBody2D
-class_name Slime, 'res://assets/entities/slime/king/king.png'
+extends Entity
+class_name Slime, 'res://assets/entities/slime/slime.icon.png'
 
 
 
@@ -13,13 +13,7 @@ const font = preload('res://assets/Font.tres')
 const _default_pixel_size := 8
 
 
-var hovered := false
-var selected := false
-var selector = null
-
-
 export(String) var Name := ''
-
 
 export(int, 0, 1000, 1) var Health  := 10
 export(int, 0, 1000, 1) var MaxHealth := 10
@@ -46,17 +40,11 @@ func _ready(): update()
 
 func _process(delta):
 	update()
-	if hovered or selected: scale = Vector2(1.25, 1.25)
-	else: scale = Vector2(1, 1)
-
-
-func _on_mouse_entered(): hovered = true
-func _on_mouse_exited(): hovered = false
 
 
 func _draw():
 	draw_circle(Vector2.ZERO, _default_pixel_size * SlimeSize, SlimeColor)
-	if hovered or selected:
+	if hovered or Selector:
 		# Health
 		draw_line(Vector2(-_default_pixel_size / 2, -_default_pixel_size - 4), Vector2(_default_pixel_size / 2, -_default_pixel_size - 4), Color.darkred, 3)
 		draw_line(Vector2(-_default_pixel_size / 2, -_default_pixel_size - 4), Vector2(Health / MaxHealth * _default_pixel_size - (_default_pixel_size / 2), -_default_pixel_size - 4), Color.red, 3)
