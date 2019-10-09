@@ -77,3 +77,11 @@ func _draw():
 		# Stamina
 		draw_line(Vector2(-_default_pixel_size / 2, -_default_pixel_size), Vector2(_default_pixel_size / 2, -_default_pixel_size), Color.darkgreen, 3)
 		draw_line(Vector2(-_default_pixel_size / 2, -_default_pixel_size), Vector2(Stamina / MaxStamina * _default_pixel_size - (_default_pixel_size / 2), -_default_pixel_size), Color.green, 3)
+
+func owned(owner : Player) -> void:
+	SlimeColor = owner.PlayerColor
+	.owned(owner)
+
+func unowned() -> void:
+	SlimeColor = Color(1, 1, 1)
+	.unowned()
