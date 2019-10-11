@@ -72,7 +72,7 @@ func _process(delta):
 	var targets = get_world_2d().direct_space_state.intersect_shape(query)
 	for target in targets:
 		target = target['collider']
-		if target is Food: target.eaten(self)
+		if target is Food: eat(target)
 
 func _draw():
 	draw_circle(Vector2.ZERO, _default_pixel_size * SlimeSize, SlimeColor)
@@ -85,6 +85,7 @@ func _draw():
 		draw_line(Vector2(-_default_pixel_size / 2, -_default_pixel_size), Vector2(_default_pixel_size / 2, -_default_pixel_size), Color.darkgreen, 3)
 		draw_line(Vector2(-_default_pixel_size / 2, -_default_pixel_size), Vector2(Stamina / MaxStamina * _default_pixel_size - (_default_pixel_size / 2), -_default_pixel_size), Color.green, 3)
 
+
 func owned(owner : Player) -> void:
 	SlimeColor = owner.PlayerColor
 	.owned(owner)
@@ -92,3 +93,11 @@ func owned(owner : Player) -> void:
 func unowned() -> void:
 	SlimeColor = Color(1, 1, 1)
 	.unowned()
+
+
+func eat(food : Food) -> void:
+	grow(0.1)
+	food.eaten(self)
+
+func grow(growth : float) -> void:
+	SlimeSize += growth
