@@ -65,7 +65,7 @@ func _process(delta):
 	
 	# TODO Find Targets within range
 	var query = Physics2DShapeQueryParameters.new()
-	query.set_shape($Range.shape)
+	query.set_shape($Body.shape)
 	query.exclude = [self]
 	query.transform = transform
 	query.collide_with_areas = true
