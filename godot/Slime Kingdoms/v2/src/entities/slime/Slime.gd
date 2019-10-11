@@ -59,7 +59,7 @@ func _process(delta):
 			
 			if Input.is_action_pressed('move_boost'): direction *= SpeedBoost
 			
-			move_and_collide(direction * Speed * delta)
+			var collision := move_and_collide(direction * Speed * delta)
 	
 	
 	
