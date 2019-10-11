@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/Entity.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Area2D",
 "class": "Food",
 "language": "GDScript",
 "path": "res://src/objects/food/Food.gd"

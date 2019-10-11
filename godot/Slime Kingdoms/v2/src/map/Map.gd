@@ -4,6 +4,11 @@ class_name Map
 
 
 
+# Refrences
+const Food := preload('res://src/objects/food/Food.tscn')
+
+
+
 # Declarations
 const _default_pixel_size := 32
 
@@ -20,7 +25,7 @@ export(Vector2) var MapSize := Vector2(1, 1)
 func _process(delta):
 	if not Engine.editor_hint:
 		if foods.size() < MaximumFood:
-			var food := Food.new()
+			var food := Food.instance()
 			spread_food(food)
 			food.connect('eaten', self, 'queue_food')
 			foods.append(food)
@@ -34,4 +39,6 @@ func _process(delta):
 func spread_food(food : Food) -> void:
 	food.position = Vector2(randi() % (MapSize.x * _default_pixel_size) as int, randi() % (MapSize.y * _default_pixel_size) as int)
 
-func queue_food(food : Food, entity : Entity) -> void: queue_foods.append(food)
+func queue_food(food : Food, entity : Entity) -> void:
+	remove_child(food)
+	queue_foods.append(food)

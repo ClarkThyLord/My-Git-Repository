@@ -61,12 +61,18 @@ func _process(delta):
 			
 			move_and_collide(direction * Speed * delta)
 	
+	
+	
 	# TODO Find Targets within range
-#	var query = Physics2DShapeQueryParameters.new()
-#	query.set_shape($Range.shape)
-#	query.exclude = [self]
-#	query.transform = transform
-#	var targets = get_world_2d().direct_space_state.intersect_shape(query)
+	var query = Physics2DShapeQueryParameters.new()
+	query.set_shape($Range.shape)
+	query.exclude = [self]
+	query.transform = transform
+	query.collide_with_areas = true
+	var targets = get_world_2d().direct_space_state.intersect_shape(query)
+	for target in targets:
+		target = target['collider']
+		if target is Food: target.eaten(self)
 
 func _draw():
 	draw_circle(Vector2.ZERO, _default_pixel_size * SlimeSize, SlimeColor)
