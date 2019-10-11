@@ -4,7 +4,7 @@
 [ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/entities/slime/Slime.tscn" type="PackedScene" id=3]
 
-[node name="Node2D" type="Node2D"]
+[node name="main" type="Node2D"]
 
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource( 1 )
