@@ -47,6 +47,7 @@ func _unhandled_input(event : InputEvent) -> void:
 				if select.is_in_group('slimes'):
 					select.Target = get_global_mouse_position()
 	elif event is InputEventMouseButton:
+		# TODO give selected a Target on click
 		if event.button_index == BUTTON_LEFT and not event.is_pressed():
 			var targets = get_world_2d().direct_space_state.intersect_point(get_global_mouse_position())
 			for target in targets:
