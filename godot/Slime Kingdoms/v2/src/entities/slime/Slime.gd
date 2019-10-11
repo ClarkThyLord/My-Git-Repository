@@ -30,9 +30,9 @@ var Target
 export(float, 0.01, 10, 0.01) var SlimeSize := 1.0 setget set_slime_size
 func set_slime_size(slime_size : float) -> void:
 	SlimeSize = slime_size
-	$Sprite.scale = Vector2(slime_size, slime_size)
-	($Body.shape as CircleShape2D).radius = slime_size * _default_pixel_size
-	($Range.shape as CircleShape2D).radius = slime_size * _default_pixel_size * 2.5
+	# TODO resize shapes
+	($Body.shape as CircleShape2D).set_radius(slime_size * _default_pixel_size)
+	($Range.shape as CircleShape2D).set_radius(slime_size * _default_pixel_size * 2.5)
 
 export(Color) var SlimeColor := Color(1, 1, 1) setget set_slime_color
 func set_slime_color(slime_color : Color) -> void:
